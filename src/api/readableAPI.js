@@ -15,7 +15,21 @@ export const getAllCategories = () =>
      .then(res => res.json())
      .then(data => data.categories)
 
+// export const savePost(post) {
+//   const request = new Request(`${api}/posts`, {
+//        method: 'POST',
+//        headers: new Headers({ headers}),
+//        body: JSON.stringify({ post: post })
+//      });
+// }
+
 export const savePost = (post) =>
-   fetch(`${api}/posts`, { headers })
+   fetch(`${api}/posts`, {
+     method: 'POST',
+     headers: headers,
+     body: JSON.stringify({ post: post })
+   }).then(res => res.json())
+
+export const getAllPost = () =>
+  fetch(`${api}/posts`, { headers })
      .then(res => res.json())
-     

@@ -14,7 +14,11 @@ class App extends Component {
   componentDidMount() {
     ReadableAPI.getAllCategories().then((categories) => {
       this.setState({categories})
-    })
+    });
+
+    ReadableAPI.getAllPost().then((posts) => {
+      console.log(posts);
+    });
   }
 
   render() {

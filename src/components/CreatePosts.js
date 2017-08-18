@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormControl, FormGroup, ControlLabel, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import newId from '../utils/newid';
+//import newId from '../utils/newid';
 import { createPosts } from '../actions';
 
 class CreatePosts extends Component{
@@ -25,16 +25,13 @@ class CreatePosts extends Component{
   }
 
   componentDidMount() {
-    var timestamp = new Date();
+    var timestamp = new Date().getTime() / 1000;
     const post = this.state.post;
     post['timestamp'] = timestamp;
-    post['id'] = this.id
+    const uuidv1 = require('uuid/v1');
+    post['id'] = uuidv1();;
 
     this.setState({post: post});
-  }
-
-  componentWillMount() {
-      this.id = newId();
   }
 
   updatePostState = (event) => {
@@ -49,13 +46,13 @@ class CreatePosts extends Component{
     event.preventDefault();
     console.log(this.state.post);
     this.props.createpost(this.state.post);
+
     //or
     //this.props.dispatch(CreatePostSuccess(this.state.post))
   }
 
   render(){
     const {categories} = this.props;
-    console.log(this.props);
 
     return(
       <div className="row">
