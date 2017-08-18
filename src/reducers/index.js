@@ -1,17 +1,19 @@
 import { combineReducers } from 'redux'
 
 import {
-  ADD_POST
+  CREATE_POST_SUCCESS
 } from '../actions'
 
+
 function posts (state = {}, action) {
+  console.log(action);
+
   switch (action.type) {
-    case ADD_POST :
-      const { recipe } = action
+    case CREATE_POST_SUCCESS :
 
       return {
         ...state,
-        [recipe.label]: recipe,
+        valueToPass: action.post,
       }
     default :
       return state
