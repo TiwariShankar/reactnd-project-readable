@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormControl, FormGroup, ControlLabel, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import newId from '../utils/newid';
-import { CreatePostSuccess } from '../actions';
+import { createPosts } from '../actions';
 
 class CreatePosts extends Component{
   constructor(props) {
@@ -127,7 +127,7 @@ class CreatePosts extends Component{
 //map dispatch methdd to a specific props
 function mapDispatchToProps (dispatch) {
   return {
-     createpost: (post) => dispatch(CreatePostSuccess(post))
+     createpost: (post) => dispatch(createPosts(post))
  };
 }
 

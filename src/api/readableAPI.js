@@ -15,12 +15,7 @@ export const getAllCategories = () =>
      .then(res => res.json())
      .then(data => data.categories)
 
-export function savePost(post){
- return dispatch => {
-   return fetch(`${api}/categories`, {
-     method: 'post',
-     body: JSON.stringify(post),
-     headers: {headers}
-   }).then(res => res.json())
- }
-}
+export const savePost = (post) =>
+   fetch(`${api}/posts`, { headers })
+     .then(res => res.json())
+     

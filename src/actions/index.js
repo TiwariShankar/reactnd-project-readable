@@ -1,8 +1,21 @@
+import * as ReadableAPI from '../api/readableAPI';
+
 export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS'
 
-export function CreatePostSuccess(post) {
+export function createPostSuccess(result) {
   return {
     type: CREATE_POST_SUCCESS,
-    post 
+    result
   }
+}
+
+export function createPosts(post) {
+  return function (dispatch) {
+    return ReadableAPI.savePost(post).then(responseData => {
+      dispatch(createPostSuccess(responseData));
+      return responseData;
+    }).catch(error => {
+      throw(error);
+    });
+  };
 }
