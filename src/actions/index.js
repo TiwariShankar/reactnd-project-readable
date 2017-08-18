@@ -12,8 +12,9 @@ export function createPostSuccess(result) {
 export function createPosts(post) {
   return function (dispatch) {
     return ReadableAPI.savePost(post).then(responseData => {
-      dispatch(createPostSuccess(responseData));
-      return responseData;
+      //dispatch(createPostSuccess(responseData));
+      console.log(responseData);
+      //return responseData;
     }).catch(error => {
       throw(error);
     });

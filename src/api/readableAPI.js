@@ -7,7 +7,8 @@ if (!token)
 
 const headers = {
   'Accept': 'application/json',
-  'Authorization': token
+  'Authorization': token,
+  'Content-Type': 'application/json'
 }
 
 export const getAllCategories = () =>
@@ -15,20 +16,14 @@ export const getAllCategories = () =>
      .then(res => res.json())
      .then(data => data.categories)
 
-// export const savePost(post) {
-//   const request = new Request(`${api}/posts`, {
-//        method: 'POST',
-//        headers: new Headers({ headers}),
-//        body: JSON.stringify({ post: post })
-//      });
-// }
 
 export const savePost = (post) =>
    fetch(`${api}/posts`, {
      method: 'POST',
      headers: headers,
-     body: JSON.stringify({ post: post })
+     body: JSON.stringify(post)
    }).then(res => res.json())
+
 
 export const getAllPost = () =>
   fetch(`${api}/posts`, { headers })
