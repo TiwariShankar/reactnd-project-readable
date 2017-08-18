@@ -24,7 +24,3 @@ export function savePost(post){
    }).then(res => res.json())
  }
 }
-// export const createPost = (post) =>
-//    save(`${api}/posts`, { headers })
-//      .then(res => res.json())
-//      .then(data => data)

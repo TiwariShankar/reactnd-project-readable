@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+//import { combineReducers } from 'redux'
 
 import {
   CREATE_POST_SUCCESS
@@ -7,19 +7,17 @@ import {
 
 function posts (state = {}, action) {
   console.log(action);
+  const {post} = action;
 
   switch (action.type) {
     case CREATE_POST_SUCCESS :
-
       return {
         ...state,
-        valueToPass: action.post,
+        valueToPass: post,
       }
     default :
       return state
   }
 }
 
-export default combineReducers({
-  posts
-})
+export default posts;

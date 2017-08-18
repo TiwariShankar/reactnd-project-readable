@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { FormControl, FormGroup, ControlLabel, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import newId from '../utils/newid';
-//import { savePost } from '../actions/index.js'
-import {bindActionCreators} from 'redux';
-import * as courseActions from '../actions/index';
+import { CreatePostSuccess } from '../actions';
 
 class CreatePosts extends Component{
   constructor(props) {
@@ -44,17 +42,20 @@ class CreatePosts extends Component{
     const post = this.state.post;
     post[field] = event.target.value;
     this.setState({post: post});
+
   }
 
   savePost = (event) => {
     event.preventDefault();
     console.log(this.state.post);
-    //this.props.savePost(this.state.post);
-    this.props.actions.createPost(this.state.post)
+    this.props.createpost(this.state.post);
+    //or
+    //this.props.dispatch(CreatePostSuccess(this.state.post))
   }
 
   render(){
     const {categories} = this.props;
+    console.log(this.props);
 
     return(
       <div className="row">
@@ -115,16 +116,19 @@ class CreatePosts extends Component{
 }
 
 //export default CreatePosts;
-function mapStateToProps(state, ownProps) {
-   return {
-     post: state.post
-   }
-}
 
+//maps redux state to component props
+// function mapStateToProps(state, ownProps) {
+//    return {
+//      post: state.post
+//    }
+// }
+
+//map dispatch methdd to a specific props
 function mapDispatchToProps (dispatch) {
   return {
-   actions: bindActionCreators(courseActions, dispatch)
+     createpost: (post) => dispatch(CreatePostSuccess(post))
  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePosts);
+export default connect(null, mapDispatchToProps)(CreatePosts);
