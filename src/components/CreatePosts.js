@@ -24,30 +24,27 @@ class CreatePosts extends Component{
     categories: PropTypes.array.isRequired
   }
 
-  componentDidMount() {
-    var timestamp = new Date().getTime() / 1000;
-    const post = this.state.post;
-    post['timestamp'] = timestamp;
-    const uuidv1 = require('uuid/v1');
-    post['id'] = uuidv1();;
-
-    this.setState({post: post});
-  }
-
   updatePostState = (event) => {
     const field = event.target.name;
     const post = this.state.post;
     post[field] = event.target.value;
     this.setState({post: post});
-
   }
 
   savePost = (event) => {
     event.preventDefault();
+
+    var timestamp = new Date().getTime() / 1000;
+    const post = this.state.post;
+    post['timestamp'] = timestamp;
+    const uuidv1 = require('uuid/v1');
+    post['id'] = uuidv1();;
+    this.setState({post: post});
+
     console.log(this.state.post);
     this.props.createpost(this.state.post);
 
-    const post = this.state.post;
+    //const post = this.state.post;
     post['timestamp'] = '';
     post['title'] = '';
     post['body'] = '';
