@@ -8,8 +8,7 @@ class PostsShow extends Component {
     }
 
     render() {
-        // const {posts} = this.props;
-        // console.log(posts);
+        console.log(this.props.posts);
         return (
             <div className="class-name">
 

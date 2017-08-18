@@ -1,13 +1,13 @@
 //import { combineReducers } from 'redux'
-//import {browserHistory} from 'react-router';
 
 import {
   CREATE_POST_SUCCESS,
   GETALL_POST_SUCCESS
 } from '../actions'
+import initialState from './initialState';
 
 
-function posts (state = {}, action) {
+function posts (state = initialState.posts, action) {
   switch (action.type) {
     case CREATE_POST_SUCCESS :
        //browserHistory.push(`/PostsShow/${action.post.id}`)

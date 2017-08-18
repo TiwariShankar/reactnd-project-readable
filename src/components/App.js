@@ -3,15 +3,14 @@ import { Route } from 'react-router-dom'
 import CreatePosts from '../components/CreatePosts'
 import PostsShow from '../components/PostsShow'
 import * as ReadableAPI from '../api/readableAPI';
-import { connect } from 'react-redux';
-import { getAllPosts } from '../actions';
+//import { connect } from 'react-redux';
+//import { getAllPosts } from '../actions';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      categories: [],
-      post: []
+      categories: []
     }
   }
 
@@ -22,27 +21,26 @@ class App extends Component {
       })
     });
 
-    this.props.getAllPost();
+    //this.props.getAllPost();
   }
 
   render() {
     return (
       <div>
         <Route exact path="/" component={PostsShow} />
-        <Route exact path="/create" render={ () => (
+        <Route exact path="/create" render={() => (
               <CreatePosts categories={ this.state.categories } />
-
-                                       ) } />
+        )}/>
       </div>
 
       );
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getAllPost: () => dispatch(getAllPosts())
-  };
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     getAllPost: () => dispatch(getAllPosts())
+//   };
+// }
 
-export default connect(null, mapDispatchToProps)(App);
+//export default connect(null, mapDispatchToProps)(App);
