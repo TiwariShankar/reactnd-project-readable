@@ -1,8 +1,12 @@
 import React,{Component} from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class PostsShow extends Component {
+    static propTypes = {
+      posts: PropTypes.array.isRequired
+    }
+
     render() {
         // const {posts} = this.props;
         // console.log(posts);
@@ -16,11 +20,10 @@ class PostsShow extends Component {
 
 //maps redux state to component props
 function mapStateToProps(state, ownProps) {
-   const statePosts = Object.assign([], state.posts);
-   console.log(statePosts);
+   console.log(state.posts);
    return {
-    statePosts
+    posts: state.posts
    };
 }
 
-export default connect(mapStateToProps ,null)(PostsShow);
+export default connect(mapStateToProps)(PostsShow);

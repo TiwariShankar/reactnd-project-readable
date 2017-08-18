@@ -28,9 +28,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/" render={ () => (
-              <PostsShow posts={ this.state.posts } />
-                                       ) } />
+        <Route exact path="/" component={PostsShow} />
         <Route exact path="/create" render={ () => (
               <CreatePosts categories={ this.state.categories } />
 

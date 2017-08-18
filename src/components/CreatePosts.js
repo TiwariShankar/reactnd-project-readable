@@ -86,7 +86,7 @@ class CreatePosts extends Component {
             <br/>
             <div className="form-group">
               <label>Title</label>
-              <input type="text" className="form-control" type="text" name="title" value={ this.state.post.title } onChange={ this.updatePostState } placeholder="Title" />
+              <input type="text" className="form-control" name="title" value={ this.state.post.title } onChange={ this.updatePostState } placeholder="Title" />
             </div>
             <br/>
             <div className="form-group">
