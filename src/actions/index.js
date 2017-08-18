@@ -1,13 +1,5 @@
-export const ADD_POST = 'ADD_POST'
+export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS'
 
-export function addPost({ id, title, body, owner, category, timestamp }) {
-  return {
-    type: ADD_POST,
-    id,
-    title,
-    body,
-    owner,
-    category,
-    timestamp
-  }
+export function CreatePostSuccess(post) {
+  return { type: CREATE_POST_SUCCESS, post }
 }

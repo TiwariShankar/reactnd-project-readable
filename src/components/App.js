@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import CreatePosts from '../components/CreatePosts'
 import * as ReadableAPI from '../api/readableAPI';
@@ -20,11 +19,15 @@ class App extends Component {
 
   render() {
     return (
-      <Route exact path="/" render={() => (
-         <CreatePosts
-           categories={this.state.categories}
-         />
+    <div>
+       <Route exact path="/" render={() => (
+           <CreatePosts
+             categories={this.state.categories}
+           />
        )}/>
+
+    </div>
+
     );
   }
 }

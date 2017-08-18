@@ -1,62 +1,69 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormControl, FormGroup, ControlLabel, Col, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import newId from '../utils/newid';
+//import { savePost } from '../actions/index.js'
+import {bindActionCreators} from 'redux';
+import * as courseActions from '../actions/index';
 
 class CreatePosts extends Component{
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      title: '',
-      body: '',
-      owner: '',
-      timestamp: ''
-    }
+      post:{
+          title: '',
+          body: '',
+          owner: '',
+          timestamp: '',
+          id: ''
+        }
+    };
+    this.updatePostState = this.updatePostState.bind(this);
   }
 
   static propTypes = {
     categories: PropTypes.array.isRequired
   }
 
-  handleTitleChange = (title) => {
-     if(title){
-       this.setState({title})
-     }else{
-       this.setState({title:''})
-     }
+  componentDidMount() {
+    var timestamp = new Date();
+    const post = this.state.post;
+    post['timestamp'] = timestamp;
+    post['id'] = this.id
+
+    this.setState({post: post});
   }
 
-  handleContentChange = (body) => {
-    if(body){
-      this.setState({body})
-    }else{
-      this.setState({body:''})
-    }
+  componentWillMount() {
+      this.id = newId();
   }
 
-  handleNameChange = (owner) => {
-    if(owner){
-      this.setState({owner})
-    }else{
-      this.setState({owner:''})
-    }
+  updatePostState = (event) => {
+    const field = event.target.name;
+    const post = this.state.post;
+    post[field] = event.target.value;
+    this.setState({post: post});
   }
 
-  postData = (event) => {
+  savePost = (event) => {
     event.preventDefault();
-    console.log('A content was submitted: ' + this.state.body);
-    var timestamp = new Date()
-    this.setState({timestamp})
+    console.log(this.state.post);
+    //this.props.savePost(this.state.post);
+    this.props.actions.createPost(this.state.post)
   }
 
   render(){
     const {categories} = this.props;
+
     return(
       <div className="row">
           <div>
             <Col xs={4} sm={4}>
               <h2>Readble App</h2>
               <br/>
-              <form onSubmit={(event) => this.postData(event)}>
+              <input id={this.id} type="hidden" />
+              <form onSubmit={(event) => this.savePost(event)}>
                   <FormGroup controlId="formControlsSelect">
                      <ControlLabel>Categories</ControlLabel>
                      <FormControl componentClass="select" placeholder="Categories">
@@ -71,8 +78,9 @@ class CreatePosts extends Component{
                   <ControlLabel>Name</ControlLabel>
                   <FormControl
                      type="text"
-                     value={this.state.username}
-                     onChange={(event) => this.handleNameChange(event.target.value)}
+                     name="owner"
+                     value={this.state.post.owner}
+                     onChange={this.updatePostState}
                      placeholder="Enter your name"
                    />
                    <br/>
@@ -80,8 +88,9 @@ class CreatePosts extends Component{
                   <ControlLabel>Title</ControlLabel>
                   <FormControl
                      type="text"
-                     value={this.state.title}
-                     onChange={(event) => this.handleTitleChange(event.target.value)}
+                     name="title"
+                     value={this.state.post.title}
+                     onChange={this.updatePostState}
                      placeholder="Title"
                    />
                   <br/>
@@ -90,8 +99,9 @@ class CreatePosts extends Component{
                    <ControlLabel>body</ControlLabel>
                    <FormControl
                      componentClass="textarea"
-                     value={this.state.body}
-                     onChange={(event) => this.handleContentChange(event.target.value)}
+                     name="body"
+                     value={this.state.post.body}
+                     onChange={this.updatePostState}
                      placeholder="Content" />
                   </FormGroup>
 
@@ -104,4 +114,17 @@ class CreatePosts extends Component{
   }
 }
 
-export default CreatePosts;
+//export default CreatePosts;
+function mapStateToProps(state, ownProps) {
+   return {
+     post: state.post
+   }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+   actions: bindActionCreators(courseActions, dispatch)
+ };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePosts);
