@@ -47,6 +47,13 @@ class CreatePosts extends Component{
     console.log(this.state.post);
     this.props.createpost(this.state.post);
 
+    const post = this.state.post;
+    post['timestamp'] = '';
+    post['title'] = '';
+    post['body'] = '';
+    post['owner'] = '';
+    this.setState({post: post});
+
     //or
     //this.props.dispatch(CreatePostSuccess(this.state.post))
   }
