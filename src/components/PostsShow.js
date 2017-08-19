@@ -19,10 +19,17 @@ class PostsShow extends Component {
 
 //maps redux state to component props
 function mapStateToProps(state, ownProps) {
-   console.log(state.posts);
-   return {
-    posts: state.posts
-   };
+  //console.log("state:", state);
+  if (state.length > 0) {
+    return {
+      posts: state
+    }
+  } else {
+    return {
+      posts: [{id: '', timestamp: '', author: '', body: '', category: '', title: '',
+              voteScore: '', deleted: ''}]
+    }
+  }
 }
 
 export default connect(mapStateToProps)(PostsShow);
