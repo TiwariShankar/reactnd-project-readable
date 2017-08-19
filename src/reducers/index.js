@@ -2,20 +2,20 @@
 
 import {
   CREATE_POST_SUCCESS,
-  GETALL_POST_SUCCESS
+  GETALL_POST_SUCCESS,
+  UPDATE_POST_SUCCESS
 } from '../actions'
 import initialState from './initialState';
 
 
 function posts (state = initialState.posts, action) {
   switch (action.type) {
-    case CREATE_POST_SUCCESS :
-       //browserHistory.push(`/PostsShow/${action.post.id}`)
+     case CREATE_POST_SUCCESS :
        return action.posts;
      case GETALL_POST_SUCCESS :
-         //browserHistory.push(`/PostsShow/${action.post.id}`)
-        //return state.map(post => action.posts);
-        return action.posts;
+       return action.posts;
+     case UPDATE_POST_SUCCESS:
+       return action.posts;
     default :
       return state
   }

@@ -1,34 +1,42 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React,{Component} from 'react';
+//import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createPosts } from '../actions';
+import * as ReadableAPI from '../api/readableAPI';
+import { updatePosts } from '../actions';
 
-class CreatePosts extends Component {
+class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       post: {
+        id: '',
         title: '',
         body: '',
         author: '',
-        timestamp: '',
-        id: ''
+        timestamp: ''
       }
     };
     this.updatePostState = this.updatePostState.bind(this);
   }
 
-  static propTypes = {
-    categories: PropTypes.array.isRequired
-  }
+  componentDidMount() {
+    const postId = this.props.match.params.id;
+    const post = this.state.post;
+    ReadableAPI.getPost(postId).then((postData) => {
+      post['id'] = postData['id']
+      post['title'] = postData['title']
+      post['body'] = postData['body']
+      post['author'] = postData['author']
+      post['timestamp'] = postData['timestamp']
+      this.setState({post});
+    });
+   }
 
   updatePostState = (event) => {
-    const field = event.target.name;
-    const post = this.state.post;
-    post[field] = event.target.value;
-    this.setState({
-      post: post
-    });
+      const field = event.target.name;
+      const post = this.state.post;
+      post[field] = event.target.value;
+      this.setState({post});
   }
 
   savePost = (event) => {
@@ -39,42 +47,18 @@ class CreatePosts extends Component {
     post['timestamp'] = timestamp;
     const uuidv1 = require('uuid/v1');
     post['id'] = uuidv1();;
-    this.setState({
-      post: post
-    });
+    this.setState({post});
 
-    //console.log(this.state.post);
-    this.props.createpost(this.state.post);
+    this.props.updatePost(this.state.post);
+    this.props.history.push("/");
+  }
 
-    //const post = this.state.post;
-    post['timestamp'] = '';
-    post['title'] = '';
-    post['body'] = '';
-    post['author'] = '';
-    this.setState({
-      post: post
-    });
- }
-
-  render() {
-    const {categories} = this.props;
-
-    return (
+  render(){
+    return(
       <div className="row">
         <div className="col-md-6 col-md-offset-3">
           <form onSubmit={ (event) => this.savePost(event) }>
-            <h2>Readble App</h2>
-            <br/>
-            <div className="form-group">
-              <label>Categories</label>
-              <select id="categories" className="form-control">
-                {categories.map((data, i) => (
-                    <option key={ i } value={ data.path }>
-                      { data.path }
-                    </option>
-                  )) }
-              </select>
-            </div>
+            <h2>Post </h2>
             <br/>
             <div className="form-group">
               <label>Your Name</label>
@@ -92,19 +76,22 @@ class CreatePosts extends Component {
               </textarea>
             </div>
             <br/>
-            <button className="btn btn-default" type="submit">Create</button>
+            <button className="btn btn-default" type="submit">Save</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button className="btn btn-default" type="submit">Delete</button>
           </form>
         </div>
       </div>
-      );
+
+    );
   }
 }
 
-//map dispatch methdd to a specific props
+//map dispatch method to a specific props
 function mapDispatchToProps(dispatch) {
   return {
-    createpost: (post) => dispatch(createPosts(post))
+    updatePost: (post) => dispatch(updatePosts(post))
   };
 }
 
-export default connect(null, mapDispatchToProps)(CreatePosts);
+export default connect(null, mapDispatchToProps)(PostDetail);

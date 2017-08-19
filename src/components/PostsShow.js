@@ -22,7 +22,7 @@ class PostsShow extends Component {
             <div className="col-md-6 col-md-offset-3">
                {posts.map((post, i) => (
                  <div key={i}>
-                     <Link to={"/post/:post.id"}>{post.title}</Link>
+                     <Link to={`/posts/${ post.id }`}>{post.title}</Link>
                      <div>
                         <span>{post.voteScore} points</span>&nbsp;
                         <span>by {post.author} </span>&nbsp;

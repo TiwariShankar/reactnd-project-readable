@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom'
-import CreatePosts from '../components/CreatePosts'
-import PostsShow from '../components/PostsShow'
+import { Route } from 'react-router-dom';
+import CreatePosts from '../components/CreatePosts';
+import PostsShow from '../components/PostsShow';
+import PostDetail from '../components/PostDetail';
 import * as ReadableAPI from '../api/readableAPI';
-//import { connect } from 'react-redux';
-//import { getAllPosts } from '../actions';
 
 export default class App extends Component {
   constructor(props) {
@@ -20,8 +19,6 @@ export default class App extends Component {
         categories
       })
     });
-
-    //this.props.getAllPost();
   }
 
   render() {
@@ -31,16 +28,9 @@ export default class App extends Component {
         <Route exact path="/create" render={() => (
               <CreatePosts categories={ this.state.categories } />
         )}/>
+        <Route exact path="/posts/:id" component={PostDetail} />
       </div>
 
       );
   }
 }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     getAllPost: () => dispatch(getAllPosts())
-//   };
-// }
-
-//export default connect(null, mapDispatchToProps)(App);
