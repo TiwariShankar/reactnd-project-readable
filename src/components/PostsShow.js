@@ -16,7 +16,6 @@ class PostsShow extends Component {
     }
 
     render() {
-        console.log(this.props.posts);
         const posts = Object.keys(this.props.posts).map((k) => this.props.posts[k])
         return (
         <div>

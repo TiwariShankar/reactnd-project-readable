@@ -10,7 +10,6 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
-
 export const getAllCategories = () =>
    fetch(`${api}/categories`, { headers })
      .then(res => res.json())
@@ -25,11 +24,9 @@ export const savePost = (post) =>
    }).then(res => res.json())
 
 
-
 export const getAllPost = () =>
   fetch(`${api}/posts`, { headers })
      .then(res => res.json())
-
 
 
 export const getPost = (postId) =>
@@ -40,6 +37,14 @@ export const getPost = (postId) =>
 export const updatePost = (post) =>
   fetch(`${api}/posts/${post.id}`, {
     method: 'PUT',
+    headers: headers,
+    body: JSON.stringify(post)
+  }).then(res => res.json())
+
+
+export const deletePost = (post) =>
+  fetch(`${api}/posts/${post.id}`, {
+    method: 'DELETE',
     headers: headers,
     body: JSON.stringify(post)
   }).then(res => res.json())

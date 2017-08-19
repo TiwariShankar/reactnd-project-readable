@@ -1,9 +1,11 @@
 //for single post
 import React,{Component} from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ReadableAPI from '../api/readableAPI';
-import { updatePosts } from '../actions';
+import * as postActions from '../actions';
+import { bindActionCreators } from 'redux';
+
 
 class PostDetail extends Component {
   constructor(props) {
@@ -14,11 +16,17 @@ class PostDetail extends Component {
         title: '',
         body: '',
         author: '',
-        timestamp: ''
+        timestamp: '',
+        voteScore: '',
+        deleted: ''
       }
     };
     this.updatePostState = this.updatePostState.bind(this);
   }
+
+  static propTypes = {
+    actions: PropTypes.object.isRequired
+  };
 
   componentDidMount() {
     const postId = this.props.match.params.id;
@@ -29,6 +37,8 @@ class PostDetail extends Component {
       post['body'] = postData['body']
       post['author'] = postData['author']
       post['timestamp'] = postData['timestamp']
+      post['voteScore'] = postData['timestamp']
+      post['deleted'] = postData['deleted']
       this.setState({post});
     });
    }
@@ -48,7 +58,15 @@ class PostDetail extends Component {
     post['timestamp'] = timestamp;
     this.setState({post});
 
-    this.props.updatePost(this.state.post);
+    //this.props.updatePost(this.state.post);
+    this.props.actions.updatePosts(this.state.post);
+    this.props.history.push("/");
+  }
+
+  deletePost = (event) => {
+    event.preventDefault();
+    console.log(this.state.post);
+    this.props.actions.deletePosts(this.state.post);
     this.props.history.push("/");
   }
 
@@ -56,7 +74,7 @@ class PostDetail extends Component {
     return(
       <div className="row">
         <div className="col-md-6 col-md-offset-3">
-          <form onSubmit={ (event) => this.savePost(event) }>
+          <form>
             <h2>Post </h2>
             <br/>
             <div className="form-group">
@@ -75,9 +93,9 @@ class PostDetail extends Component {
               </textarea>
             </div>
             <br/>
-            <button className="btn btn-default" type="submit">Save</button>
+            <button onClick={ (event) => this.savePost(event) } className="btn btn-default" type="submit">Save</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="btn btn-default" type="submit">Delete</button>
+            <button onClick={ (event) => this.deletePost(event) } className="btn btn-default" type="submit">Delete</button>
           </form>
         </div>
       </div>
@@ -89,7 +107,8 @@ class PostDetail extends Component {
 //map dispatch method to a specific props
 function mapDispatchToProps(dispatch) {
   return {
-    updatePost: (post) => dispatch(updatePosts(post))
+    actions: bindActionCreators(postActions, dispatch)
+    //updatePost: (post) => dispatch(updatePosts(post))
   };
 }
 

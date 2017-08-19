@@ -3,6 +3,14 @@ import * as ReadableAPI from '../api/readableAPI';
 export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS'
 export const GETALL_POST_SUCCESS = 'GETALL_POST_SUCCESS'
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
+export const DELETE_POST_SUCCESS= 'DELETE_POST_SUCCESS'
+
+export function deletePostSuccess(post) {
+  return {
+    type: DELETE_POST_SUCCESS,
+    post
+  }
+}
 
 export function createPostSuccess(posts) {
   return {
@@ -50,6 +58,17 @@ export function updatePosts(post) {
   return function (dispatch) {
     return ReadableAPI.updatePost(post).then(responseData => {
       dispatch(updatePostSuccess(responseData));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function deletePosts(post) {
+  return function (dispatch) {
+    return ReadableAPI.deletePost(post).then(responseData => {
+      console.log(responseData);
+      dispatch(deletePostSuccess(responseData));
     }).catch(error => {
       throw(error);
     });

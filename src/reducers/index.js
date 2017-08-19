@@ -1,10 +1,11 @@
 import {
   CREATE_POST_SUCCESS,
   GETALL_POST_SUCCESS,
-  UPDATE_POST_SUCCESS
+  UPDATE_POST_SUCCESS,
+  DELETE_POST_SUCCESS
 } from '../actions'
-import initialState from './initialState';
 
+import initialState from './initialState';
 
 function posts (state = initialState.posts, action) {
   switch (action.type) {
@@ -15,11 +16,13 @@ function posts (state = initialState.posts, action) {
      case GETALL_POST_SUCCESS :
           return action.posts;
      case UPDATE_POST_SUCCESS:
-       return [...state.filter(posts => posts.id !== action.posts.id),
-                 action.posts
-        ]
+          return [...state.filter(posts => posts.id !== action.posts.id),
+                   action.posts
+          ]
+     case DELETE_POST_SUCCESS:
+          return action.posts;
     default :
-      return state
+          return state
   }
 }
 
