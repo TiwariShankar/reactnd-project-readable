@@ -7,19 +7,38 @@ class PostsShow extends Component {
       posts: PropTypes.array.isRequired
     }
 
-    render() {
-        console.log(this.props.posts);
-        return (
-            <div className="class-name">
+    getDate = (timestamp) => {
+      const date = new Date(timestamp*1000);
+      const hours = date.getHours();
+      return hours
+    }
 
+    render() {
+        const posts = this.props.posts;
+        return (
+         <div className="container">
+          <div className="row">
+            <div className="col-md-6 col-md-offset-3">
+               {posts.map((post, i) => (
+                 <div key={i}>
+                     {post.title}
+                     <div>
+                        <span>{post.voteScore} points</span>&nbsp;
+                        <span>by {post.author} </span>&nbsp;
+                        <span>{this.getDate(post.timestamp)} hours ago</span>
+                     </div>
+                     <br/>
+                 </div>
+               ))}
             </div>
+           </div>
+          </div>
         );
     }
 }
 
 //maps redux state to component props
 function mapStateToProps(state, ownProps) {
-  //console.log("state:", state);
   if (state.length > 0) {
     return {
       posts: state

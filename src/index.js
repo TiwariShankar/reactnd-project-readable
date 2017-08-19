@@ -23,7 +23,6 @@ const store = createStore(
 
 store.dispatch(getAllPosts());
 
-
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>

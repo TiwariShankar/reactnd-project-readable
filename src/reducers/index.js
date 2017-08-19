@@ -17,7 +17,6 @@ function posts (state = initialState.posts, action) {
        ]
      case GETALL_POST_SUCCESS :
          //browserHistory.push(`/PostsShow/${action.post.id}`)
-        console.log("inside reducers:", action.posts);
         //return state.map(post => action.posts);
         return action.posts;
     default :

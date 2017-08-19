@@ -32,7 +32,7 @@ export function getAllPosts() {
   return function (dispatch) {
     return ReadableAPI.getAllPost().then(data => {
       dispatch(gellAllPostSuccess(data));
-      console.log("inside action gellAllPostSuccess", data);
+      //console.log("inside action gellAllPostSuccess", data);
     }).catch(error => {
       throw(error);
     });

@@ -43,7 +43,7 @@ class CreatePosts extends Component {
       post: post
     });
 
-    console.log(this.state.post);
+    //console.log(this.state.post);
     this.props.createpost(this.state.post);
 
     //const post = this.state.post;
@@ -54,10 +54,7 @@ class CreatePosts extends Component {
     this.setState({
       post: post
     });
-
-  //or
-  //this.props.dispatch(CreatePostSuccess(this.state.post))
-  }
+ }
 
   render() {
     const {categories} = this.props;
@@ -102,15 +99,6 @@ class CreatePosts extends Component {
       );
   }
 }
-
-//export default CreatePosts;
-
-//maps redux state to component props
-// function mapStateToProps(state, ownProps) {
-//    return {
-//      post: state.post
-//    }
-// }
 
 //map dispatch methdd to a specific props
 function mapDispatchToProps(dispatch) {
