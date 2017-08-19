@@ -10,7 +10,7 @@ class CreatePosts extends Component {
       post: {
         title: '',
         body: '',
-        owner: '',
+        author: '',
         timestamp: '',
         id: ''
       }
@@ -50,7 +50,7 @@ class CreatePosts extends Component {
     post['timestamp'] = '';
     post['title'] = '';
     post['body'] = '';
-    post['owner'] = '';
+    post['author'] = '';
     this.setState({
       post: post
     });
@@ -78,7 +78,7 @@ class CreatePosts extends Component {
             <br/>
             <div className="form-group">
               <label>Your Name</label>
-              <input type="text" className="form-control" name="owner" value={ this.state.post.owner } onChange={ this.updatePostState } placeholder="Enter your name" />
+              <input type="text" className="form-control" name="author" value={ this.state.post.author } onChange={ this.updatePostState } placeholder="Enter your name" />
             </div>
             <br/>
             <div className="form-group">

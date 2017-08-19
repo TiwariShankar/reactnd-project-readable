@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class PostsShow extends Component {
     static propTypes = {
@@ -21,7 +22,7 @@ class PostsShow extends Component {
             <div className="col-md-6 col-md-offset-3">
                {posts.map((post, i) => (
                  <div key={i}>
-                     {post.title}
+                     <Link to={"/post/:post.id"}>{post.title}</Link>
                      <div>
                         <span>{post.voteScore} points</span>&nbsp;
                         <span>by {post.author} </span>&nbsp;
