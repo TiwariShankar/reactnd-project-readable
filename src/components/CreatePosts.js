@@ -54,6 +54,7 @@ class CreatePosts extends Component {
     this.setState({
       post: post
     });
+    //this.props.history.push("/");
  }
 
   render() {

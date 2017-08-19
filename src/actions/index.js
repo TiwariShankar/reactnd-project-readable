@@ -4,10 +4,10 @@ export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS'
 export const GETALL_POST_SUCCESS = 'GETALL_POST_SUCCESS'
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
 
-export function createPostSuccess(result) {
+export function createPostSuccess(posts) {
   return {
     type: CREATE_POST_SUCCESS,
-    result
+    posts
   }
 }
 
@@ -47,7 +47,6 @@ export function getAllPosts() {
 }
 
 export function updatePosts(post) {
-  console.log(post);
   return function (dispatch) {
     return ReadableAPI.updatePost(post).then(responseData => {
       dispatch(updatePostSuccess(responseData));

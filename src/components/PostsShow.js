@@ -1,4 +1,5 @@
-import React,{Component} from 'react';
+//list of post
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -15,8 +16,16 @@ class PostsShow extends Component {
     }
 
     render() {
-        const posts = this.props.posts;
+      console.log(this.props.posts);
+        const posts = Object.keys(this.props.posts[0]).map((k) => this.props.posts[0][k])
         return (
+        <div>
+        <nav id="navbar" className="navbar navbar-default" role="navigation">
+                <div className="navbar-header">
+                   <Link to={"/create"}>Create New Post</Link>
+                </div>
+        </nav>
+
          <div className="container">
           <div className="row">
             <div className="col-md-6 col-md-offset-3">
@@ -34,6 +43,7 @@ class PostsShow extends Component {
             </div>
            </div>
           </div>
+        </div>
         );
     }
 }

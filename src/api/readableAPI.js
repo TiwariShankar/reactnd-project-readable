@@ -1,6 +1,5 @@
 const api = "http://localhost:5001"
 
-// Generate a unique token for storing your readable data on the backend server.
 let token = localStorage.token
 if (!token)
   token = localStorage.token = Math.random().toString(36).substr(-8)
@@ -26,14 +25,17 @@ export const savePost = (post) =>
    }).then(res => res.json())
 
 
+
 export const getAllPost = () =>
   fetch(`${api}/posts`, { headers })
      .then(res => res.json())
 
 
+
 export const getPost = (postId) =>
   fetch(`${api}/posts/${postId}`, { headers })
      .then(res => res.json())
+
 
 export const updatePost = (post) =>
   fetch(`${api}/posts/${post.id}`, {

@@ -1,3 +1,4 @@
+//for single post
 import React,{Component} from 'react';
 //import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -45,8 +46,6 @@ class PostDetail extends Component {
     var timestamp = new Date().getTime() / 1000;
     const post = this.state.post;
     post['timestamp'] = timestamp;
-    const uuidv1 = require('uuid/v1');
-    post['id'] = uuidv1();;
     this.setState({post});
 
     this.props.updatePost(this.state.post);
