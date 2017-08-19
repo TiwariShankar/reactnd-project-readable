@@ -37,7 +37,7 @@ class PostDetail extends Component {
       post['body'] = postData['body']
       post['author'] = postData['author']
       post['timestamp'] = postData['timestamp']
-      post['voteScore'] = postData['timestamp']
+      post['voteScore'] = postData['voteScore']
       post['deleted'] = postData['deleted']
       this.setState({post});
     });
@@ -50,7 +50,7 @@ class PostDetail extends Component {
       this.setState({post});
   }
 
-  savePost = (event) => {
+  editPost = (event) => {
     event.preventDefault();
 
     var timestamp = new Date().getTime() / 1000;
@@ -65,7 +65,6 @@ class PostDetail extends Component {
 
   deletePost = (event) => {
     event.preventDefault();
-    console.log(this.state.post);
     this.props.actions.deletePosts(this.state.post);
     this.props.history.push("/");
   }
@@ -93,7 +92,7 @@ class PostDetail extends Component {
               </textarea>
             </div>
             <br/>
-            <button onClick={ (event) => this.savePost(event) } className="btn btn-default" type="submit">Save</button>
+            <button onClick={ (event) => this.editPost(event) } className="btn btn-default" type="submit">Save</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button onClick={ (event) => this.deletePost(event) } className="btn btn-default" type="submit">Delete</button>
           </form>

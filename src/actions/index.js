@@ -5,10 +5,10 @@ export const GETALL_POST_SUCCESS = 'GETALL_POST_SUCCESS'
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
 export const DELETE_POST_SUCCESS= 'DELETE_POST_SUCCESS'
 
-export function deletePostSuccess(post) {
+export function deletePostSuccess(posts) {
   return {
     type: DELETE_POST_SUCCESS,
-    post
+    posts
   }
 }
 
@@ -64,10 +64,10 @@ export function updatePosts(post) {
   };
 }
 
+
 export function deletePosts(post) {
   return function (dispatch) {
     return ReadableAPI.deletePost(post).then(responseData => {
-      console.log(responseData);
       dispatch(deletePostSuccess(responseData));
     }).catch(error => {
       throw(error);

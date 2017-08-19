@@ -47,4 +47,8 @@ export const deletePost = (post) =>
     method: 'DELETE',
     headers: headers,
     body: JSON.stringify(post)
-  }).then(res => res.json())
+  })
+  .then(res => res.json())
+  .catch(error => {
+      return error;
+    });

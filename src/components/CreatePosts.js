@@ -26,9 +26,7 @@ class CreatePosts extends Component {
     const field = event.target.name;
     const post = this.state.post;
     post[field] = event.target.value;
-    this.setState({
-      post: post
-    });
+    this.setState(post);
   }
 
   savePost = (event) => {
@@ -39,9 +37,7 @@ class CreatePosts extends Component {
     post['timestamp'] = timestamp;
     const uuidv1 = require('uuid/v1');
     post['id'] = uuidv1();;
-    this.setState({
-      post: post
-    });
+    this.setState(post);
 
     this.props.createpost(this.state.post);
 
@@ -49,9 +45,7 @@ class CreatePosts extends Component {
     post['title'] = '';
     post['body'] = '';
     post['author'] = '';
-    this.setState({
-      post: post
-    });
+    this.setState(post);
     //this.props.history.push("/");
  }
 

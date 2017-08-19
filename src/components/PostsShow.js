@@ -19,7 +19,7 @@ class PostsShow extends Component {
         const posts = Object.keys(this.props.posts).map((k) => this.props.posts[k])
         return (
         <div>
-        <nav id="navbar" className="navbar navbar-default" role="navigation">
+        <nav id="navbar" className="navbar navbar-default">
                 <div className="navbar-header">
                    <Link to={"/create"}>Create New Post</Link>
                 </div>
@@ -28,7 +28,7 @@ class PostsShow extends Component {
          <div className="container">
           <div className="row">
             <div className="col-md-6 col-md-offset-3">
-               {posts.map((post, i) => (
+               {posts.length > 0 && posts.map((post, i) => (
                  <div key={i}>
                      <Link to={`/posts/${ post.id }`}>{post.title}</Link>
                      <div>
@@ -55,8 +55,7 @@ function mapStateToProps(state, ownProps) {
     }
   } else {
     return {
-      posts: [{id: '', timestamp: '', author: '', body: '', category: '', title: '',
-              voteScore: '', deleted: ''}]
+      posts: []
     }
   }
 }
