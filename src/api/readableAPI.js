@@ -70,3 +70,14 @@ export const loadCountComment = (postId) =>
   .catch(error => {
         return error;
    });
+
+export const saveComment = (comments) =>
+  fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(comments)
+  })
+  .then(res => res.json())
+  .catch(error => {
+        return error;
+   });

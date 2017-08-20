@@ -3,7 +3,8 @@ import {
   GETALL_POST_SUCCESS,
   UPDATE_POST_SUCCESS,
   DELETE_POST_SUCCESS,
-  VOTE_POST_SUCCESS
+  VOTE_POST_SUCCESS,
+  POST_COMMENT_SUCCESS
 } from '../actions'
 
 import initialState from './initialState';
@@ -29,6 +30,8 @@ function posts (state = initialState.posts, action) {
          return [ ...state.filter(posts => posts.id !== action.posts.id),
                   action.posts
          ]
+     case POST_COMMENT_SUCCESS:
+         return action.comments;
      default :
           return state
   }
