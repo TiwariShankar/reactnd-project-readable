@@ -23,11 +23,16 @@ class PostsShow extends Component {
 
     upvote = (post) => {
       this.props.actions.votePost(post, "upVote");
-      //this.props.history.push("/");
+    }
+
+    handleAddPost = (e) => {
+       e.preventDefault()
+       this.props.history.push('/create');
     }
 
     render() {
         const posts = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
+
         const divStyle = {
           color: '#000000',
           fontWeight:200,
@@ -35,14 +40,7 @@ class PostsShow extends Component {
           WebkitTransition: 'all',
           msTransition: 'all'
         };
-        const navBar ={
-          marginLeft: '442px',
-          marginTop: '12px',
-          WebkitTransition: 'all',
-          msTransition: 'all',
-          color:"black",
-          fontSize:'10pt',
-        }
+
         const titleStyle = {
           fontWeight:50,
           color:"black",
@@ -51,6 +49,7 @@ class PostsShow extends Component {
           msTransition: 'all',
           textDecoration: "none"
         }
+
         const hrStyle = {
           border: "none",
           WebkitTransition: 'all',
@@ -59,44 +58,47 @@ class PostsShow extends Component {
           width: "100%",
           borderBottom: "#6ec6fc 1px solid"
         }
+
         const dateStyle = {
           color: "#FCC471",
           fontSize: "1.4rem"
         }
+
+        const addPostStyle = {
+          float: "right",
+          marginRight: "30px",
+          marginTop: "260px"
+        }
+
         return (
         <div>
-        <nav id="navbar" className="navbar navbar-default">
-                <div>
-                   <Link to={"/create"}><p style={navBar}>Create New Post</p></Link>
-                </div>
-        </nav>
-
-         <div className="container">
-          <div className="row">
-          <br/>
-            <div className="col-md-6 col-md-offset-3">
-               {posts.length > 0 && posts.map((post, i) => (
-                 <div key={i}>
-                     <Link to={`/posts/${ post.id }`}><p style={titleStyle}>{post.title}</p></Link>
-                     <div style={divStyle}>
-                        <span>{post.voteScore} points</span>&nbsp;
-                        <span>by {post.author} </span>&nbsp;
-                        <span style={dateStyle}>{this.getDate(post.timestamp)} hours ago</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button onClick= {(event) => this.upvote(post)}
-                                className='btn btn-success btn-xs'>Upvote
-                        </button>&nbsp;
-                        <button className='btn btn-danger btn-xs'>Downvote</button>
-                     </div>
-                     <hr style={hrStyle}/>
-                     <br/><br/><br/>
-
-                 </div>
-               ))}
-
+           <div className="container">
+            <div className="row">
+              <br/>
+              <div className="col-md-6 col-md-offset-3">
+                 {posts.length > 0 && posts.map((post, i) => (
+                   <div key={i}>
+                       <Link to={`/posts/${ post.id }`}><p style={titleStyle}>{post.title}</p></Link>
+                       <div style={divStyle}>
+                          <span>{post.voteScore} points</span>&nbsp;
+                          <span>by {post.author} </span>&nbsp;
+                          <span style={dateStyle}>{this.getDate(post.timestamp)} hours ago</span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <button onClick= {(event) => this.upvote(post)}
+                                  className='btn btn-success btn-xs'>Upvote
+                          </button>&nbsp;
+                          <button className='btn btn-danger btn-xs'>Downvote</button>
+                       </div>
+                       <hr style={hrStyle}/>
+                       <br/><br/><br/>
+                   </div>
+                 ))}
+              </div>
+             </div>
             </div>
-           </div>
-          </div>
+            <button onClick={this.handleAddPost} style={addPostStyle} type="button" className="btn btn-default btn-lg">
+              <span className="glyphicon glyphicon-plus"></span>&nbsp;
+            </button>
         </div>
         );
     }

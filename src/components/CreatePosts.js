@@ -32,7 +32,6 @@ class CreatePosts extends Component {
 
   savePost = (event) => {
     event.preventDefault();
-
     var timestamp = new Date().getTime() / 1000;
     const post = this.state.post;
     post['timestamp'] = timestamp;
@@ -47,8 +46,7 @@ class CreatePosts extends Component {
     post['body'] = '';
     post['author'] = '';
     this.setState(post);
-    //this.props.history.push("/");
- }
+   }
 
   render() {
     const {categories} = this.props;
