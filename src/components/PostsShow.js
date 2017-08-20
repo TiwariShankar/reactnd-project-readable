@@ -44,7 +44,7 @@ class PostsShow extends Component {
 
     loadCountsComment = (post) => {
       console.log(post.id);
-      this.props.actions.loadComments(post.id);
+      //this.props.actions.loadComments(post.id);
       // ReadableAPI.loadCountComment(post.id).then((responseData) => {
       //   console.log("loadCountComment", responseData)
       //   if(responseData.length > 0){
@@ -59,7 +59,6 @@ class PostsShow extends Component {
         //maps object to array
         var data = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
         const posts =  _.sortBy(data, 'voteScore').reverse();
-
         return (
         <div>
            <div className="container">

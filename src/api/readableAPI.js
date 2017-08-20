@@ -88,3 +88,14 @@ export const loadComment = (postId) =>
   .catch(error => {
         return error;
    });
+
+export const deleteComment = (data) =>
+  fetch(`${api}/comments/${data.id}`, {
+    method: 'DELETE',
+    headers: headers,
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .catch(error => {
+        return error;
+   });

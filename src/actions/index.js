@@ -8,6 +8,14 @@ export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS'
 export const LOAD_COUNT_COMMENT_SUCCESS = 'LOAD_COUNT_COMMENT_SUCCESS'
 export const POST_COMMENT_SUCCESS = 'POST_COMMENT_SUCCESS'
 export const LOAD_COMMENT_SUCCESS = 'LOAD_COMMENT_SUCCESS'
+export const DELETE_COMMENT_SUCCESS= 'DELETE_COMMENT_SUCCESS'
+
+export function deleteCommentSuccess(comments){
+  return {
+    type: DELETE_COMMENT_SUCCESS,
+    comments
+  }
+}
 
 export function loadCommentSuccess(comments){
   return {
@@ -117,7 +125,6 @@ export function votePost(post, status) {
   };
 }
 
-
 export function postComments(comments) {
   return function (dispatch) {
     return ReadableAPI.saveComment(comments).then(responseData => {
@@ -132,6 +139,16 @@ export function loadComments(postId) {
   return function (dispatch) {
     return ReadableAPI.loadComment(postId).then(responseData => {
       dispatch(loadCommentSuccess(responseData));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function deleteComment(data) {
+  return function (dispatch) {
+    return ReadableAPI.deleteComment(data).then(responseData => {
+      dispatch(deleteCommentSuccess(responseData));
     }).catch(error => {
       throw(error);
     });

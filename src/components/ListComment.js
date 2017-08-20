@@ -78,10 +78,13 @@ class ListComment extends Component {
      return hours
    }
 
+   deleteComment = (data) => {
+       this.props.actions.deleteComment(data);
+   }
+
    render() {
         const post = this.state.post;
         const comments = this.props.comments;
-        //console.log("comments", comments);
         return (
           <div>
            <div className="container">
@@ -101,12 +104,18 @@ class ListComment extends Component {
                  </textarea><br/>
                  <button onClick={(event) => this.updateCommentState(post.id)}
                          className="btn btn-default btn-xs">Add Comment</button>
-                  <br/><br/>
+                  <br/><br/><br/>
                   {comments.length > 0 && comments.map((data, i) => (
                     <div key={i}>
                        <span>{this.getDate(data.timestamp)} hours ago</span>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <button className='btn btn-success btn-xs'
+                               onClick= {(event) => this.deleteComment(data)}>
+                           Delete
+                       </button>
                        <br/>
                        <span>{data.body}</span>
+                       <br/><br/>
                     </div>
                   ))}
               </div>
@@ -119,7 +128,6 @@ class ListComment extends Component {
 
 function mapStateToProps(state, ownProps) {
   const comment = state.comments;
-  //console.log()
   if(comment.length > 0){
     return {
       comments : comment
