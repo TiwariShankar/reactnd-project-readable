@@ -6,8 +6,16 @@ import { Link } from 'react-router-dom';
 import * as postActions from '../actions';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
+import { divStyle, titleStyle, dateStyle, hrStyle, addPostStyle} from '../styles/styles';
+import * as ReadableAPI from '../api/readableAPI';
 
 class PostsShow extends Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        commentCount: ''
+      }
+    }
     static propTypes = {
       posts: PropTypes.array.isRequired
     }
@@ -31,47 +39,25 @@ class PostsShow extends Component {
        this.props.history.push('/create');
     }
 
+    showComments = (postId) => {
+       this.props.history.push(`/posts/${ postId }/comments`);
+    }
+
+    loadCountsComment = (post) => {
+      ReadableAPI.loadCountComment(post.id).then((responseData) => {
+        console.log(responseData)
+        if(responseData.length > 0){
+          return responseData.length;
+        }else{
+          return 0;
+        }
+      });
+    }
+
     render() {
+        //maps object to array
         var data = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
-        var posts =  _.sortBy(data, 'voteScore').reverse();
-        console.log(posts);
-        const divStyle = {
-          color: '#000000',
-          fontWeight:200,
-          fontSize: '10pt',
-          WebkitTransition: 'all',
-          msTransition: 'all'
-        };
-
-        const titleStyle = {
-          fontWeight:50,
-          color:"black",
-          fontSize:'30pt',
-          WebkitTransition: 'all',
-          msTransition: 'all',
-          textDecoration: "none"
-        }
-
-        const hrStyle = {
-          border: "none",
-          WebkitTransition: 'all',
-          msTransition: 'all',
-          color:"#6ec6fce",
-          width: "100%",
-          borderBottom: "#6ec6fc 1px solid"
-        }
-
-        const dateStyle = {
-          color: "#FCC471",
-          fontSize: "1.4rem"
-        }
-
-        const addPostStyle = {
-          float: "right",
-          marginRight: "30px",
-          marginTop: "260px",
-          borderRadius: "10px",
-        }
+        const posts =  _.sortBy(data, 'voteScore').reverse();
 
         return (
         <div>
@@ -89,10 +75,13 @@ class PostsShow extends Component {
                           &nbsp;&nbsp;&nbsp;&nbsp;
                           <button onClick= {(event) => this.upvote(post, "upVote")}
                                   className='btn btn-success btn-xs'>Upvote
-                          </button>&nbsp;
+                          </button>&nbsp;&nbsp;
                           <button onClick= {(event) => this.upvote(post, "downVote")}
                                   className='btn btn-danger btn-xs'>Downvote
                           </button>
+                          &nbsp;&nbsp;
+                          <span>{this.loadCountsComment(post)}</span>&nbsp;&nbsp;
+                          <button onClick={(event) => this.showComments(post.id)} className="btn btn-info btn-xs"> Comments</button>
                        </div>
                        <hr style={hrStyle}/>
                        <br/><br/><br/>

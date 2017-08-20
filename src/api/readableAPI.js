@@ -63,3 +63,10 @@ export const vote = (post, status) =>
   .catch(error => {
         return error;
    });
+
+export const loadCountComment = (postId) =>
+  fetch(`${api}/posts/${postId}/comments`, { headers })
+  .then(res => res.json())
+  .catch(error => {
+        return error;
+   });

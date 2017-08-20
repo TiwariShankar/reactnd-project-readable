@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import CreatePosts from '../components/CreatePosts';
 import PostsShow from '../components/PostsShow';
 import PostDetail from '../components/PostDetail';
+import ListComment from '../components/ListComment';
 import * as ReadableAPI from '../api/readableAPI';
 
 export default class App extends Component {
@@ -23,10 +24,11 @@ export default class App extends Component {
     return (
       <div>
         <Route exact path="/" component={PostsShow} />
-        <Route exact path="/create" render={() => (
+        <Route path="/create" render={() => (
               <CreatePosts categories={ this.state.categories } />
         )}/>
         <Route exact path="/posts/:id" component={PostDetail} />
+        <Route path="/posts/:id/comments" component={ListComment} />
       </div>
 
       );

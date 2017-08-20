@@ -5,6 +5,7 @@ export const GETALL_POST_SUCCESS = 'GETALL_POST_SUCCESS'
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS'
 export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS'
+export const LOAD_COUNT_COMMENT_SUCCESS = 'LOAD_COUNT_COMMENT_SUCCESS'
 
 export function deletePostSuccess(posts) {
   return {
@@ -41,6 +42,12 @@ export function upvotePostSuccess(posts){
   }
 }
 
+export function loadCommentSuccess(comments){
+  return {
+    type: LOAD_COUNT_COMMENT_SUCCESS,
+    comments
+  }
+}
 
 export function createPosts(post) {
   return function (dispatch) {

@@ -29,7 +29,7 @@ function posts (state = initialState.posts, action) {
          return [ ...state.filter(posts => posts.id !== action.posts.id),
                   action.posts
          ]
-    default :
+     default :
           return state
   }
 }
