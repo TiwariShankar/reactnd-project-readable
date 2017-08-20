@@ -7,6 +7,14 @@ export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS'
 export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS'
 export const LOAD_COUNT_COMMENT_SUCCESS = 'LOAD_COUNT_COMMENT_SUCCESS'
 export const POST_COMMENT_SUCCESS = 'POST_COMMENT_SUCCESS'
+export const LOAD_COMMENT_SUCCESS = 'LOAD_COMMENT_SUCCESS'
+
+export function loadCommentSuccess(comments){
+  return {
+    type: LOAD_COMMENT_SUCCESS,
+    comments
+  }
+}
 
 export function commentPostSuccess(comments) {
   return {
@@ -50,12 +58,12 @@ export function upvotePostSuccess(posts){
   }
 }
 
-export function loadCommentSuccess(comments){
-  return {
-    type: LOAD_COUNT_COMMENT_SUCCESS,
-    comments
-  }
-}
+// export function loadCommentSuccess(comments){
+//   return {
+//     type: LOAD_COUNT_COMMENT_SUCCESS,
+//     comments
+//   }
+// }
 
 export function createPosts(post) {
   return function (dispatch) {
@@ -114,6 +122,16 @@ export function postComments(comments) {
   return function (dispatch) {
     return ReadableAPI.saveComment(comments).then(responseData => {
       dispatch(commentPostSuccess(responseData));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function loadComments(postId) {
+  return function (dispatch) {
+    return ReadableAPI.loadComment(postId).then(responseData => {
+      dispatch(loadCommentSuccess(responseData));
     }).catch(error => {
       throw(error);
     });

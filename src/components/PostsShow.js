@@ -7,7 +7,6 @@ import * as postActions from '../actions';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { divStyle, titleStyle, dateStyle, hrStyle, addPostStyle} from '../styles/styles';
-import * as ReadableAPI from '../api/readableAPI';
 
 class PostsShow extends Component {
     constructor(props) {
@@ -44,14 +43,16 @@ class PostsShow extends Component {
     }
 
     loadCountsComment = (post) => {
-      ReadableAPI.loadCountComment(post.id).then((responseData) => {
-        console.log(responseData)
-        if(responseData.length > 0){
-          return responseData.length;
-        }else{
-          return 0;
-        }
-      });
+      console.log(post.id);
+      this.props.actions.loadComments(post.id);
+      // ReadableAPI.loadCountComment(post.id).then((responseData) => {
+      //   console.log("loadCountComment", responseData)
+      //   if(responseData.length > 0){
+      //     return responseData.length;
+      //   }else{
+      //     return 0;
+      //   }
+      // });
     }
 
     render() {

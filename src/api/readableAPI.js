@@ -81,3 +81,10 @@ export const saveComment = (comments) =>
   .catch(error => {
         return error;
    });
+
+export const loadComment = (postId) =>
+  fetch(`${api}/posts/${postId}/comments`, { headers })
+  .then(res => res.json())
+  .catch(error => {
+        return error;
+   });

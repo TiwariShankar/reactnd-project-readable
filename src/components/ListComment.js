@@ -2,7 +2,9 @@ import React,{Component} from 'react';
 import * as ReadableAPI from '../api/readableAPI';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComments } from '../actions';
+import * as commentActions from '../actions';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 class ListComment extends Component {
    constructor(props) {
@@ -22,8 +24,14 @@ class ListComment extends Component {
     }
    }
 
+   static propTypes = {
+     actions: PropTypes.object.isRequired
+   };
+
    componentDidMount() {
        const postId = this.props.match.params.id;
+       this.props.actions.loadComments(postId);
+
        const post = this.state.post;
        ReadableAPI.getPost(postId).then((postData) => {
          post['id'] = postData['id']
@@ -54,7 +62,7 @@ class ListComment extends Component {
         //console.log(comments);
         this.setState(comments);
 
-        this.props.postComment(this.state.comments);
+        this.props.actions.postComments(this.state.comments);
 
         comments['timestamp'] = '';
         comments['parentId'] = '';
@@ -73,7 +81,7 @@ class ListComment extends Component {
    render() {
         const post = this.state.post;
         const comments = this.props.comments;
-        console.log("comments.body", comments);
+        //console.log("comments", comments);
         return (
           <div>
            <div className="container">
@@ -110,11 +118,11 @@ class ListComment extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log("mapStateToProps", state);
-  const comments = state.comments;
-  if(comments.length > 0){
+  const comment = state.comments;
+  //console.log()
+  if(comment.length > 0){
     return {
-      comments : comments
+      comments : comment
     }
   }else{
     return {
@@ -125,7 +133,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    postComment: (comments) => dispatch(postComments(comments))
+    actions: bindActionCreators(commentActions, dispatch)
   };
 }
 
