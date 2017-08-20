@@ -51,4 +51,15 @@ export const deletePost = (post) =>
   .then(res => res.json())
   .catch(error => {
       return error;
-    });
+  });
+
+export const vote = (post, status) =>
+  fetch(`${api}/posts/${post.id}`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(status)
+  })
+  .then(res => res.json())
+  .catch(error => {
+        return error;
+   });

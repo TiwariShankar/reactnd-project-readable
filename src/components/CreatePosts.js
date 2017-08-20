@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createPosts } from '../actions';
+import PostList from '../components/PostList';
 
 class CreatePosts extends Component {
   constructor(props) {
@@ -69,21 +70,7 @@ class CreatePosts extends Component {
               </select>
             </div>
             <br/>
-            <div className="form-group">
-              <label>Your Name</label>
-              <input type="text" className="form-control" name="author" value={ this.state.post.author } onChange={ this.updatePostState } placeholder="Enter your name" />
-            </div>
-            <br/>
-            <div className="form-group">
-              <label>Title</label>
-              <input type="text" className="form-control" name="title" value={ this.state.post.title } onChange={ this.updatePostState } placeholder="Title" />
-            </div>
-            <br/>
-            <div className="form-group">
-              <label>Content</label>
-              <textarea className="form-control" rows="3" name="body" value={ this.state.post.body } onChange={ this.updatePostState } placeholder="Content">
-              </textarea>
-            </div>
+             <PostList post={this.state.post} updatePostState={this.updatePostState}/>
             <br/>
             <button className="btn btn-default" type="submit">Create</button>
           </form>

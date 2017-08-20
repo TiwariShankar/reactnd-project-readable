@@ -2,7 +2,8 @@ import {
   CREATE_POST_SUCCESS,
   GETALL_POST_SUCCESS,
   UPDATE_POST_SUCCESS,
-  DELETE_POST_SUCCESS
+  DELETE_POST_SUCCESS,
+  VOTE_POST_SUCCESS
 } from '../actions'
 
 import initialState from './initialState';
@@ -23,7 +24,9 @@ function posts (state = initialState.posts, action) {
          const newState = Object.assign([], state);
          const indexOfPostToDelete = state.findIndex(posts => {return posts.id === action.posts.id})
          newState.splice(indexOfPostToDelete, 1);
-         return newState;
+         return newState
+     case VOTE_POST_SUCCESS:
+         return action.posts;
     default :
           return state
   }

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as ReadableAPI from '../api/readableAPI';
 import * as postActions from '../actions';
 import { bindActionCreators } from 'redux';
-
+import PostList from '../components/PostList';
 
 class PostDetail extends Component {
   constructor(props) {
@@ -58,7 +58,6 @@ class PostDetail extends Component {
     post['timestamp'] = timestamp;
     this.setState({post});
 
-    //this.props.updatePost(this.state.post);
     this.props.actions.updatePosts(this.state.post);
     this.props.history.push("/");
   }
@@ -69,6 +68,7 @@ class PostDetail extends Component {
     this.props.history.push("/");
   }
 
+
   render(){
     return(
       <div className="row">
@@ -76,25 +76,17 @@ class PostDetail extends Component {
           <form>
             <h2>Post </h2>
             <br/>
-            <div className="form-group">
-              <label>Your Name</label>
-              <input type="text" className="form-control" name="author" value={ this.state.post.author } onChange={ this.updatePostState } placeholder="Enter your name" />
-            </div>
+             <PostList post={this.state.post} updatePostState={this.updatePostState}/>
             <br/>
-            <div className="form-group">
-              <label>Title</label>
-              <input type="text" className="form-control" name="title" value={ this.state.post.title } onChange={ this.updatePostState } placeholder="Title" />
-            </div>
-            <br/>
-            <div className="form-group">
-              <label>Content</label>
-              <textarea className="form-control" rows="3" name="body" value={ this.state.post.body } onChange={ this.updatePostState } placeholder="Content">
-              </textarea>
-            </div>
-            <br/>
-            <button onClick={ (event) => this.editPost(event) } className="btn btn-default" type="submit">Save</button>
+            <button onClick={ (event) => this.editPost(event) }
+                    className="btn btn-default"
+                    type="submit">Save</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={ (event) => this.deletePost(event) } className="btn btn-default" type="submit">Delete</button>
+            <button onClick= {(event) => this.deletePost(event)}
+                    className="btn btn-default"
+                    type="submit">Delete
+            </button>
+
           </form>
         </div>
       </div>
@@ -107,7 +99,6 @@ class PostDetail extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(postActions, dispatch)
-    //updatePost: (post) => dispatch(updatePosts(post))
   };
 }
 

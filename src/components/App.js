@@ -15,9 +15,7 @@ export default class App extends Component {
 
   componentDidMount() {
     ReadableAPI.getAllCategories().then((categories) => {
-      this.setState({
-        categories
-      })
+      this.setState({ categories })
     });
   }
 

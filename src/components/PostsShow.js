@@ -1,18 +1,29 @@
-//list of post
+//Front page shows list of all posts
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as postActions from '../actions';
+import { bindActionCreators } from 'redux';
 
 class PostsShow extends Component {
     static propTypes = {
       posts: PropTypes.array.isRequired
     }
 
+    static propTypes = {
+      actions: PropTypes.object.isRequired
+    };
+
     getDate = (timestamp) => {
       const date = new Date(timestamp*1000);
       const hours = date.getHours();
       return hours
+    }
+
+    upvote = (post) => {
+      this.props.actions.votePost(post, "upVote");
+      //this.props.history.push("/");
     }
 
     render() {
@@ -34,11 +45,14 @@ class PostsShow extends Component {
                      <div>
                         <span>{post.voteScore} points</span>&nbsp;
                         <span>by {post.author} </span>&nbsp;
-                        <span>{this.getDate(post.timestamp)} hours ago</span>
+                        <span>{this.getDate(post.timestamp)} hours ago</span>&nbsp;
+                        <button onClick= {(event) => this.upvote(post)} className='btn btn-success btn-xs'>Upvote</button>&nbsp;
+                        <button className='btn btn-danger btn-xs'>Downvote</button>
                      </div>
                      <br/>
                  </div>
                ))}
+
             </div>
            </div>
           </div>
@@ -60,4 +74,11 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(PostsShow);
+//map dispatch method to a specific props
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(postActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsShow);
