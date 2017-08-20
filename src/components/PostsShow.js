@@ -22,7 +22,7 @@ class PostsShow extends Component {
     }
 
     upvote = (post) => {
-      this.props.actions.votePost(post, "upVote");
+      this.props.actions.votePost(post, "upvote");
       //this.props.history.push("/");
     }
 

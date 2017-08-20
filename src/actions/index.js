@@ -88,6 +88,7 @@ export function votePost(post, status) {
   console.log(post, status)
   return function (dispatch) {
     return ReadableAPI.vote(post, status).then(responseData => {
+      console.log(responseData);
       dispatch(upvotePostSuccess(responseData));
     }).catch(error => {
       throw(error);
