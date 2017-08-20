@@ -20,7 +20,7 @@ class ListComment extends Component {
         parentId:''
        }
     }
-  }
+   }
 
    componentDidMount() {
        const postId = this.props.match.params.id;
@@ -72,7 +72,9 @@ class ListComment extends Component {
             <div className="row">
                <br/>
               <div className="col-md-6 col-md-offset-3">
-                 <Link to={`/posts/${ post.id }`}><p style={{fontSize:"22px"}}>{post.title}</p></Link>
+                 <Link to={`/posts/${ post.id }`}>
+                       <p style={{fontSize:"22px"}}>{post.title}</p>
+                 </Link>
                  <br/>
                  <br/>
                  <textarea className="form-control"
@@ -91,10 +93,23 @@ class ListComment extends Component {
     }
 }
 
+function mapStateToProps(state, ownProps) {
+  console.log("mapStateToProps", state);
+  if(state.length > 0){
+    return {
+      comments : state
+    }
+  }else{
+    return {
+      comments : []
+    }
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     postComment: (comments) => dispatch(postComments(comments))
   };
 }
 
-export default connect(null, mapDispatchToProps)(ListComment);
+export default connect(mapStateToProps, mapDispatchToProps)(ListComment);

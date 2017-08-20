@@ -33,6 +33,6 @@ export const dateStyle = {
 export const addPostStyle = {
   float: "right",
   marginRight: "30px",
-  marginTop: "-780px",
-  borderRadius: "10px",
+  //marginTop: "-780px",
+  //borderRadius: "10px",
 }
