@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as postActions from '../actions';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
 class PostsShow extends Component {
     static propTypes = {
@@ -31,8 +32,9 @@ class PostsShow extends Component {
     }
 
     render() {
-        const posts = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
-
+        var data = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
+        var posts =  _.sortBy(data, 'voteScore').reverse();
+        console.log(posts);
         const divStyle = {
           color: '#000000',
           fontWeight:200,
