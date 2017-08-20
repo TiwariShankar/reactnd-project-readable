@@ -64,8 +64,16 @@ class ListComment extends Component {
         this.setState(comments);
    }
 
+   getDate = (timestamp) => {
+     const date = new Date(timestamp*1000);
+     const hours = date.getHours();
+     return hours
+   }
+
    render() {
         const post = this.state.post;
+        const comments = this.props.comments;
+        console.log("comments.body", comments);
         return (
           <div>
            <div className="container">
@@ -85,6 +93,14 @@ class ListComment extends Component {
                  </textarea><br/>
                  <button onClick={(event) => this.updateCommentState(post.id)}
                          className="btn btn-default btn-xs">Add Comment</button>
+                  <br/><br/>
+                  {comments.length > 0 && comments.map((data, i) => (
+                    <div key={i}>
+                       <span>{this.getDate(data.timestamp)} hours ago</span>
+                       <br/>
+                       <span>{data.body}</span>
+                    </div>
+                  ))}
               </div>
             </div>
            </div>
@@ -95,9 +111,10 @@ class ListComment extends Component {
 
 function mapStateToProps(state, ownProps) {
   console.log("mapStateToProps", state);
-  if(state.length > 0){
+  const comments = state.comments;
+  if(comments.length > 0){
     return {
-      comments : state
+      comments : comments
     }
   }else{
     return {

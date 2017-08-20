@@ -101,9 +101,10 @@ class PostsShow extends Component {
 
 //maps redux state to component props
 function mapStateToProps(state, ownProps) {
-  if (state.length > 0) {
+  const posts = state.posts;
+  if (posts.length > 0) {
     return {
-      posts: state
+      posts: posts
     }
   } else {
     return {

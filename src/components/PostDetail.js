@@ -70,6 +70,7 @@ class PostDetail extends Component {
 
 
   render(){
+    console.log(this.state, this.props);
     return(
       <div className="row">
         <div className="col-md-6 col-md-offset-3">
