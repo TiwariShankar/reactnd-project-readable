@@ -22,34 +22,75 @@ class PostsShow extends Component {
     }
 
     upvote = (post) => {
-      this.props.actions.votePost(post, "upvote");
+      this.props.actions.votePost(post, "upVote");
       //this.props.history.push("/");
     }
 
     render() {
-        const posts = Object.keys(this.props.posts).map((k) => this.props.posts[k])
+        const posts = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
+        const divStyle = {
+          color: '#000000',
+          fontWeight:200,
+          fontSize: '10pt',
+          WebkitTransition: 'all',
+          msTransition: 'all'
+        };
+        const navBar ={
+          marginLeft: '442px',
+          marginTop: '12px',
+          WebkitTransition: 'all',
+          msTransition: 'all',
+          color:"black",
+          fontSize:'10pt',
+        }
+        const titleStyle = {
+          fontWeight:50,
+          color:"black",
+          fontSize:'30pt',
+          WebkitTransition: 'all',
+          msTransition: 'all',
+          textDecoration: "none"
+        }
+        const hrStyle = {
+          border: "none",
+          WebkitTransition: 'all',
+          msTransition: 'all',
+          color:"#6ec6fce",
+          width: "100%",
+          borderBottom: "#6ec6fc 1px solid"
+        }
+        const dateStyle = {
+          color: "#FCC471",
+          fontSize: "1.4rem"
+        }
         return (
         <div>
         <nav id="navbar" className="navbar navbar-default">
-                <div className="navbar-header">
-                   <Link to={"/create"}>Create New Post</Link>
+                <div>
+                   <Link to={"/create"}><p style={navBar}>Create New Post</p></Link>
                 </div>
         </nav>
 
          <div className="container">
           <div className="row">
+          <br/>
             <div className="col-md-6 col-md-offset-3">
                {posts.length > 0 && posts.map((post, i) => (
                  <div key={i}>
-                     <Link to={`/posts/${ post.id }`}>{post.title}</Link>
-                     <div>
+                     <Link to={`/posts/${ post.id }`}><p style={titleStyle}>{post.title}</p></Link>
+                     <div style={divStyle}>
                         <span>{post.voteScore} points</span>&nbsp;
                         <span>by {post.author} </span>&nbsp;
-                        <span>{this.getDate(post.timestamp)} hours ago</span>&nbsp;
-                        <button onClick= {(event) => this.upvote(post)} className='btn btn-success btn-xs'>Upvote</button>&nbsp;
+                        <span style={dateStyle}>{this.getDate(post.timestamp)} hours ago</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onClick= {(event) => this.upvote(post)}
+                                className='btn btn-success btn-xs'>Upvote
+                        </button>&nbsp;
                         <button className='btn btn-danger btn-xs'>Downvote</button>
                      </div>
-                     <br/>
+                     <hr style={hrStyle}/>
+                     <br/><br/><br/>
+
                  </div>
                ))}
 
