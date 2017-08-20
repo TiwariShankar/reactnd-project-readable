@@ -57,7 +57,7 @@ export const vote = (post, status) =>
   fetch(`${api}/posts/${post.id}`, {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify(status)
+    body: JSON.stringify({ option: status })
   })
   .then(res => res.json())
   .catch(error => {

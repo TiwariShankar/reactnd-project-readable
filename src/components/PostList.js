@@ -4,7 +4,6 @@ import React from 'react'
 const PostList = ({post, updatePostState}) =>
         <div>
           <div className="form-group">
-            <label>Your Name</label>
             <input type="text"
                    className="form-control"
                    name="author"
@@ -14,7 +13,6 @@ const PostList = ({post, updatePostState}) =>
           </div>
           <br/>
           <div className="form-group">
-            <label>Title</label>
             <input type="text"
                    className="form-control"
                    name="title"
@@ -24,7 +22,6 @@ const PostList = ({post, updatePostState}) =>
           </div>
           <br/>
           <div className="form-group">
-            <label>Content</label>
             <textarea className="form-control"
                       rows="3" name="body"
                       value={ post.body }
@@ -32,6 +29,7 @@ const PostList = ({post, updatePostState}) =>
                       placeholder="Content">
             </textarea>
           </div>
+
         </div>
 
 export default PostList;

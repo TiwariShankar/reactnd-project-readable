@@ -26,7 +26,9 @@ function posts (state = initialState.posts, action) {
          newState.splice(indexOfPostToDelete, 1);
          return newState
      case VOTE_POST_SUCCESS:
-         return action.posts;
+         return [ ...state.filter(posts => posts.id !== action.posts.id),
+                  action.posts
+         ]
     default :
           return state
   }

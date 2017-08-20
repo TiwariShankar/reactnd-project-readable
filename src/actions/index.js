@@ -34,10 +34,10 @@ export function updatePostSuccess(posts) {
   }
 }
 
-export function upvotePostSuccess(responseData){
+export function upvotePostSuccess(posts){
   return {
     type: VOTE_POST_SUCCESS,
-    responseData
+    posts
   }
 }
 
@@ -85,10 +85,8 @@ export function deletePosts(post) {
 
 
 export function votePost(post, status) {
-  console.log(post, status)
   return function (dispatch) {
     return ReadableAPI.vote(post, status).then(responseData => {
-      console.log(responseData);
       dispatch(upvotePostSuccess(responseData));
     }).catch(error => {
       throw(error);

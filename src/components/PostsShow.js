@@ -21,8 +21,8 @@ class PostsShow extends Component {
       return hours
     }
 
-    upvote = (post) => {
-      this.props.actions.votePost(post, "upVote");
+    upvote = (post, status) => {
+      this.props.actions.votePost(post, status);
     }
 
     handleAddPost = (e) => {
@@ -67,7 +67,8 @@ class PostsShow extends Component {
         const addPostStyle = {
           float: "right",
           marginRight: "30px",
-          marginTop: "260px"
+          marginTop: "260px",
+          borderRadius: "10px",
         }
 
         return (
@@ -84,10 +85,12 @@ class PostsShow extends Component {
                           <span>by {post.author} </span>&nbsp;
                           <span style={dateStyle}>{this.getDate(post.timestamp)} hours ago</span>
                           &nbsp;&nbsp;&nbsp;&nbsp;
-                          <button onClick= {(event) => this.upvote(post)}
+                          <button onClick= {(event) => this.upvote(post, "upVote")}
                                   className='btn btn-success btn-xs'>Upvote
                           </button>&nbsp;
-                          <button className='btn btn-danger btn-xs'>Downvote</button>
+                          <button onClick= {(event) => this.upvote(post, "downVote")}
+                                  className='btn btn-danger btn-xs'>Downvote
+                          </button>
                        </div>
                        <hr style={hrStyle}/>
                        <br/><br/><br/>
@@ -96,7 +99,8 @@ class PostsShow extends Component {
               </div>
              </div>
             </div>
-            <button onClick={this.handleAddPost} style={addPostStyle} type="button" className="btn btn-default btn-lg">
+            <button onClick={this.handleAddPost} style={addPostStyle}
+              className="btn btn-default btn-lg">
               <span className="glyphicon glyphicon-plus"></span>&nbsp;
             </button>
         </div>

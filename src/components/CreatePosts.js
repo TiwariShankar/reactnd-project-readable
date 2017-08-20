@@ -58,7 +58,6 @@ class CreatePosts extends Component {
             <h2>Readble App</h2>
             <br/>
             <div className="form-group">
-              <label>Categories</label>
               <select id="categories" className="form-control">
                 {categories.map((data, i) => (
                     <option key={ i } value={ data.path }>
