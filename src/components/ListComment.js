@@ -2,10 +2,10 @@ import React,{Component} from 'react';
 import * as ReadableAPI from '../api/readableAPI';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-//import * as commentActions from '../actions';
 import * as commentActions from '../actions/commentActions'
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { divStyle, titleStyle, dateStyle, hrStyle, commentTitleStyle} from '../styles/styles';
 
 class ListComment extends Component {
    constructor(props) {
@@ -86,7 +86,6 @@ class ListComment extends Component {
    render() {
         const post = this.state.post;
         const comments = this.props.comments;
-        console.log(comments);
         return (
           <div>
            <div className="container">
@@ -94,7 +93,7 @@ class ListComment extends Component {
                <br/>
               <div className="col-md-6 col-md-offset-3">
                  <Link to={`/posts/${ post.id }`}>
-                       <p style={{fontSize:"22px"}}>{post.title}</p>
+                       <p style={commentTitleStyle}>{post.title}</p>
                  </Link>
                  <br/>
                  <br/>
@@ -109,16 +108,19 @@ class ListComment extends Component {
                   <br/><br/><br/>
                   {comments.length > 0 && comments.map((data, i) => (
                     <div key={i}>
-                       <Link to={`/comments/${ data.id }`}><p>{data.body}</p></Link>
-                       <span> {data.voteScore} Points</span>&nbsp;&nbsp;
-                       <span>{this.getDate(data.timestamp)} hours ago</span>&nbsp;&nbsp;
+                       <Link to={`/comments/${ data.id }`}><p style={titleStyle}>{data.body}</p></Link>
+                       <span style={divStyle}> {data.voteScore} Points</span>&nbsp;&nbsp;
+                       <span style={dateStyle}>{this.getDate(data.timestamp)} hours ago</span>&nbsp;&nbsp;
                        <button onClick= {(event) => this.votComment(data, "upVote")}
-                               className='btn btn-success btn-xs'>Upvote
+                               className='btn btn-success btn-xs'>
+                               <span className="glyphicon glyphicon-arrow-up"></span>
                        </button>&nbsp;&nbsp;
                        <button onClick= {(event) => this.votComment(data, "downVote")}
-                               className='btn btn-danger btn-xs'>Downvote
+                               className='btn btn-danger btn-xs'>
+                               <span className="glyphicon glyphicon-arrow-down"></span>
                        </button>
-                       <br/><br/>
+                       <hr style={hrStyle}/>
+                       <br/>
                     </div>
                   ))}
               </div>

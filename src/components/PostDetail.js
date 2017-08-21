@@ -6,6 +6,7 @@ import * as ReadableAPI from '../api/readableAPI';
 import * as postActions from '../actions/postActions';
 import { bindActionCreators } from 'redux';
 import PostList from '../components/PostList';
+import { Link } from 'react-router-dom';
 
 class PostDetail extends Component {
   constructor(props) {
@@ -70,25 +71,35 @@ class PostDetail extends Component {
 
 
   render(){
-    console.log(this.state, this.props);
     return(
-      <div className="row">
-        <div className="col-md-6 col-md-offset-3">
-          <form>
-            <h2>Post </h2>
-            <br/>
-             <PostList post={this.state.post} updatePostState={this.updatePostState}/>
-            <br/>
-            <button onClick={ (event) => this.editPost(event) }
-                    className="btn btn-default"
-                    type="submit">Save</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick= {(event) => this.deletePost(event)}
-                    className="btn btn-default"
-                    type="submit">Delete
-            </button>
+      <div>
+        <nav className='navbar navbar-inverse navbar-fixed-top'>
+            <div className="col-md-2 col-md-offset-5">
+               <Link to="/">
+                   <h2 style={{color:"orange", fontSize:"20pt"}}> Readable App
+                   </h2>
+               </Link>
+            </div>
+        </nav>
+        <br/> <br/> <br/>
+        <div className="row">
+          <div className="col-md-6 col-md-offset-3">
+            <form>
+              <h2 style={{color:"lightblue", fontSize:"18pt"}}>Post </h2>
+              <br/>
+               <PostList post={this.state.post} updatePostState={this.updatePostState}/>
+              <br/>
+              <button onClick={ (event) => this.editPost(event) }
+                      className="btn btn-default"
+                      type="submit">Save</button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button onClick= {(event) => this.deletePost(event)}
+                      className="btn btn-default"
+                      type="submit">Delete
+              </button>
 
-          </form>
+            </form>
+          </div>
         </div>
       </div>
 

@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { divStyle, titleStyle, dateStyle, hrStyle, addPostStyle} from '../styles/styles';
 
-class PostsShow extends Component {
+class PostShow extends Component {
     constructor(props) {
       super(props)
       this.state = {
@@ -43,7 +43,7 @@ class PostsShow extends Component {
     }
 
     loadCountsComment = (post) => {
-      console.log(post.id);
+      //console.log(post.id);
       //this.props.actions.loadComments(post.id);
       // ReadableAPI.loadCountComment(post.id).then((responseData) => {
       //   console.log("loadCountComment", responseData)
@@ -61,10 +61,21 @@ class PostsShow extends Component {
         const posts =  _.sortBy(data, 'voteScore').reverse();
         return (
         <div>
+          <nav className='navbar navbar-inverse navbar-fixed-top'>
+              <div className="col-md-2 col-md-offset-5">
+                 <h2 style={{color:"orange", fontSize:"20pt"}}> Readable App
+                 </h2>
+              </div>
+          </nav>
            <div className="container">
             <div className="row">
-              <br/>
+              <br/><br/><br/><br/><br/><br/>
               <div className="col-md-6 col-md-offset-3">
+                 <br/><br/><br/>
+                 <button onClick={this.handleAddPost} style={addPostStyle}
+                   className="btn btn-default btn-lg">
+                   <span className="glyphicon glyphicon-plus"></span>&nbsp;
+                 </button>
                  {posts.length > 0 && posts.map((post, i) => (
                    <div key={i}>
                        <Link to={`/posts/${ post.id }`}><p style={titleStyle}>{post.title}</p></Link>
@@ -74,10 +85,12 @@ class PostsShow extends Component {
                           <span style={dateStyle}>{this.getDate(post.timestamp)} hours ago</span>
                           &nbsp;&nbsp;&nbsp;&nbsp;
                           <button onClick= {(event) => this.upvote(post, "upVote")}
-                                  className='btn btn-success btn-xs'>Upvote
+                              className='btn btn-success btn-xs'>
+                              <span className="glyphicon glyphicon-arrow-up"></span>
                           </button>&nbsp;&nbsp;
                           <button onClick= {(event) => this.upvote(post, "downVote")}
-                                  className='btn btn-danger btn-xs'>Downvote
+                              className='btn btn-danger btn-xs'>
+                              <span className="glyphicon glyphicon-arrow-down"></span>
                           </button>
                           &nbsp;&nbsp;
                           <span>{this.loadCountsComment(post)}</span>&nbsp;&nbsp;
@@ -90,10 +103,6 @@ class PostsShow extends Component {
               </div>
              </div>
             </div>
-            <button onClick={this.handleAddPost} style={addPostStyle}
-              className="btn btn-default btn-lg">
-              <span className="glyphicon glyphicon-plus"></span>&nbsp;
-            </button>
         </div>
         );
     }
@@ -120,4 +129,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostsShow);
+export default connect(mapStateToProps, mapDispatchToProps)(PostShow);

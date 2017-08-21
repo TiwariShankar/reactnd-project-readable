@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import CreatePosts from '../components/CreatePosts';
-import PostsShow from '../components/PostsShow';
+import PostShow from '../components/PostShow';
 import PostDetail from '../components/PostDetail';
 import ListComment from '../components/ListComment';
 import DisplayComment from '../components/DisplayComment';
@@ -24,7 +24,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/" component={PostsShow} />
+        <Route exact path="/" component={PostShow} />
         <Route path="/create" render={() => (
               <CreatePosts categories={ this.state.categories } />
         )}/>
