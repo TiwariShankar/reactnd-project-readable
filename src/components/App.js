@@ -4,6 +4,7 @@ import CreatePosts from '../components/CreatePosts';
 import PostsShow from '../components/PostsShow';
 import PostDetail from '../components/PostDetail';
 import ListComment from '../components/ListComment';
+import DisplayComment from '../components/DisplayComment';
 import * as ReadableAPI from '../api/readableAPI';
 
 export default class App extends Component {
@@ -29,6 +30,7 @@ export default class App extends Component {
         )}/>
         <Route exact path="/posts/:id" component={PostDetail} />
         <Route path="/posts/:id/comments" component={ListComment} />
+        <Route exact path="/comments/:id" component={DisplayComment} />
       </div>
 
       );

@@ -99,3 +99,17 @@ export const deleteComment = (data) =>
   .catch(error => {
         return error;
    });
+
+export const getComment = (commentId) =>
+  fetch(`${api}/comments/${commentId}`, { headers })
+  .then(res => res.json())
+  .catch(error => {
+        return error;
+   });
+
+export const udpateComment = (data) =>
+  fetch(`${api}/comments/${data.id}`, {
+    method: 'PUT',
+    headers: headers,
+    body: JSON.stringify(data)
+  }).then(res => res.json())

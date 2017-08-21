@@ -78,10 +78,6 @@ class ListComment extends Component {
      return hours
    }
 
-   deleteComment = (data) => {
-       this.props.actions.deleteComment(data);
-   }
-
    render() {
         const post = this.state.post;
         const comments = this.props.comments;
@@ -108,14 +104,8 @@ class ListComment extends Component {
                   {comments.length > 0 && comments.map((data, i) => (
                     <div key={i}>
                        <span>{this.getDate(data.timestamp)} hours ago</span>
-                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                       <button className='btn btn-success btn-xs'
-                               onClick= {(event) => this.deleteComment(data)}>
-                           Delete
-                       </button>
+                       <Link to={`/comments/${ data.id }`}><p>{data.body}</p></Link>
                        <br/>
-                       <span>{data.body}</span>
-                       <br/><br/>
                     </div>
                   ))}
               </div>

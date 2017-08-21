@@ -9,6 +9,14 @@ export const LOAD_COUNT_COMMENT_SUCCESS = 'LOAD_COUNT_COMMENT_SUCCESS'
 export const POST_COMMENT_SUCCESS = 'POST_COMMENT_SUCCESS'
 export const LOAD_COMMENT_SUCCESS = 'LOAD_COMMENT_SUCCESS'
 export const DELETE_COMMENT_SUCCESS= 'DELETE_COMMENT_SUCCESS'
+export const UDPATE_COMMENT_SUCCESS= 'DELETE_COMMENT_SUCCESS'
+
+export function udpateCommentSuccess(comments){
+  return {
+    type: UDPATE_COMMENT_SUCCESS,
+    comments
+  }
+}
 
 export function deleteCommentSuccess(comments){
   return {
@@ -149,6 +157,16 @@ export function deleteComment(data) {
   return function (dispatch) {
     return ReadableAPI.deleteComment(data).then(responseData => {
       dispatch(deleteCommentSuccess(responseData));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function editComment(data) {
+  return function (dispatch) {
+    return ReadableAPI.udpateComment(data).then(responseData => {
+      dispatch(udpateCommentSuccess(responseData));
     }).catch(error => {
       throw(error);
     });
