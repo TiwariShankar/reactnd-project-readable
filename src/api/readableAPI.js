@@ -113,3 +113,10 @@ export const udpateComment = (data) =>
     headers: headers,
     body: JSON.stringify(data)
   }).then(res => res.json())
+
+export const votingComment = (data, status) =>
+  fetch(`${api}/comments/${data.id}`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({ option: status })
+  }).then(res => res.json())

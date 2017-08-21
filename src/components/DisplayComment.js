@@ -60,6 +60,8 @@ class DisplayComment extends Component {
               <div className="row">
                 <div className="col-md-6 col-md-offset-3">
                  <br/><br/><br/><br/>
+                 <h3>Comment</h3>
+                 <br/>
                  <div className="form-group">
                     <textarea className="form-control"
                               rows="3" name="body"
@@ -67,9 +69,10 @@ class DisplayComment extends Component {
                               onChange= {(e) => this.updateComment(e)}
                               placeholder="Content">
                     </textarea>
+                    <br/><br/>
                     <button onClick={ (event) => this.editComment(event) }
                             className="btn btn-default"
-                            type="submit">Save</button>
+                            type="submit">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;
                     <button className='btn btn-default'
                             onClick= {(event) => this.deleteComment(comment)}>
                         Delete

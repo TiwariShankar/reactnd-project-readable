@@ -78,9 +78,14 @@ class ListComment extends Component {
      return hours
    }
 
+   votComment = (data, status) => {
+     this.props.actions.voteComment(data, status);
+   }
+
    render() {
         const post = this.state.post;
         const comments = this.props.comments;
+        console.log(comments);
         return (
           <div>
            <div className="container">
@@ -103,9 +108,16 @@ class ListComment extends Component {
                   <br/><br/><br/>
                   {comments.length > 0 && comments.map((data, i) => (
                     <div key={i}>
-                       <span>{this.getDate(data.timestamp)} hours ago</span>
                        <Link to={`/comments/${ data.id }`}><p>{data.body}</p></Link>
-                       <br/>
+                       <span> {data.voteScore} Points</span>&nbsp;&nbsp;
+                       <span>{this.getDate(data.timestamp)} hours ago</span>&nbsp;&nbsp;
+                       <button onClick= {(event) => this.votComment(data, "upVote")}
+                               className='btn btn-success btn-xs'>Upvote
+                       </button>&nbsp;&nbsp;
+                       <button onClick= {(event) => this.votComment(data, "downVote")}
+                               className='btn btn-danger btn-xs'>Downvote
+                       </button>
+                       <br/><br/>
                     </div>
                   ))}
               </div>
