@@ -3,7 +3,7 @@ import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ReadableAPI from '../api/readableAPI';
-import * as postActions from '../actions';
+import * as postActions from '../actions/postActions';
 import { bindActionCreators } from 'redux';
 import PostList from '../components/PostList';
 

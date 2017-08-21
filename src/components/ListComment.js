@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import * as ReadableAPI from '../api/readableAPI';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as commentActions from '../actions';
+//import * as commentActions from '../actions';
+import * as commentActions from '../actions/commentActions'
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 

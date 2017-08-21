@@ -9,7 +9,7 @@ import reducer from './reducers';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { getAllPosts } from './actions';
+import { getAllPosts } from './actions/postActions';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
