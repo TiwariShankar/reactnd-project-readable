@@ -3,6 +3,7 @@ import * as ReadableAPI from '../api/readableAPI';
 import { bindActionCreators } from 'redux';
 import * as commentActions from '../actions/commentActions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class DisplayComment extends Component {
   constructor(props) {
@@ -56,7 +57,16 @@ class DisplayComment extends Component {
   render() {
       const comment = this.state.comment;
       return (
+        <div>
           <div className="container">
+              <nav className='navbar navbar-inverse navbar-fixed-top'>
+                  <div className="col-md-2 col-md-offset-5">
+                     <Link to={`/posts/${ comment.parentId }/comments`}>
+                         <h2 style={{color:"orange", fontSize:"20pt"}}> Readable App
+                         </h2>
+                     </Link>
+                  </div>
+              </nav>
               <div className="row">
                 <div className="col-md-6 col-md-offset-3">
                  <br/><br/><br/><br/>
@@ -81,6 +91,7 @@ class DisplayComment extends Component {
                 </div>
               </div>
           </div>
+       </div>
       );
   }
 }

@@ -6,6 +6,7 @@ import * as commentActions from '../actions/commentActions'
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { divStyle, titleStyle, dateStyle, hrStyle, commentTitleStyle} from '../styles/styles';
+import _ from 'lodash';
 
 class ListComment extends Component {
    constructor(props) {
@@ -85,9 +86,21 @@ class ListComment extends Component {
 
    render() {
         const post = this.state.post;
-        const comments = this.props.comments;
+        let comments = this.props.comments;
+
+        comments = Object.keys(comments).map((k) => comments[k]);
+        comments =  _.sortBy(comments, 'voteScore').reverse();
+
         return (
           <div>
+          <nav className='navbar navbar-inverse navbar-fixed-top'>
+              <div className="col-md-2 col-md-offset-5">
+                 <Link to="/">
+                     <h2 style={{color:"orange", fontSize:"20pt"}}> Readable App
+                     </h2>
+                 </Link>
+              </div>
+          </nav>
            <div className="container">
             <div className="row">
                <br/>

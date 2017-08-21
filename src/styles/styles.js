@@ -1,6 +1,6 @@
 
 export const divStyle = {
-  color: '#000000',
+  color: '#111',
   fontWeight:200,
   fontSize: '10pt',
   WebkitTransition: 'all',
@@ -8,8 +8,7 @@ export const divStyle = {
 };
 
 export const titleStyle = {
-  fontWeight:50,
-  color:"black",
+  color:'#111',
   fontSize:'15pt',
   WebkitTransition: 'all',
   msTransition: 'all',
@@ -19,7 +18,7 @@ export const titleStyle = {
 export const commentTitleStyle = {
   fontSize:'20pt',
   // fontFamily: 'Open Sans, sans-serif',
-  // textShadow: '0 1px 6px rgba(0,0,0,0.1)',
+  //textShadow: '0 1px 6px rgba(0,0,0,0.1)',
   color: 'orange',
   WebkitTransition: 'all',
   msTransition: 'all',

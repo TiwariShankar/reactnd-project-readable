@@ -62,14 +62,13 @@ class PostShow extends Component {
         return (
         <div>
           <nav className='navbar navbar-inverse navbar-fixed-top'>
-              <div className="col-md-2 col-md-offset-5">
-                 <h2 style={{color:"orange", fontSize:"20pt"}}> Readable App
-                 </h2>
-              </div>
+                 <span style={{color:"orange", fontSize:"18pt", display:"inline"}}>
+                   Readable App
+                 </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </nav>
            <div className="container">
             <div className="row">
-              <br/><br/><br/><br/><br/><br/>
+              <br/><br/><br/><br/>
               <div className="col-md-6 col-md-offset-3">
                  <br/><br/><br/>
                  <button onClick={this.handleAddPost} style={addPostStyle}

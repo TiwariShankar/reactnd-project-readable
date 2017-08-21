@@ -41,6 +41,7 @@ class CreatePosts extends Component {
     this.setState(post);
 
     this.props.createpost(this.state.post);
+    //this.props.history.push("/");
 
     post['timestamp'] = '';
     post['title'] = '';
