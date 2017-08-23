@@ -7,15 +7,13 @@ import * as postActions from '../actions/postActions';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { divStyle, titleStyle, dateStyle, hrStyle, addPostStyle} from '../styles/styles';
-//import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 class PostShow extends Component {
     constructor(props) {
-      super(props)
+      super(props);
       this.state = {
         commentCount: '',
-        category:[],
-        posts:[]
+        sortBy:''
       }
     }
     static propTypes = {
@@ -62,14 +60,33 @@ class PostShow extends Component {
     handleDropdownCategory = (evtKey) => {
       const category = evtKey.target.value;
       this.props.actions.getPostCategory(category);
+      const posts =  _.sortBy(this.props, 'timestamp').reverse();
+      this.setState({posts});
+    }
+
+    handleSort = (evtKey) => {
+       const sortBy = evtKey.target.value;
+       this.setState({sortBy});
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.posts !== this.props.posts) {
+        this.setState({ sortBy:'' });
+      }
     }
 
     render() {
         //maps object to array
         const category = this.props.category;
         var data = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
-        const posts =  _.sortBy(data, 'voteScore').reverse();
-        //this.setState({posts})
+        var posts =  _.sortBy(data, 'voteScore').reverse();
+
+        if(this.state.sortBy!==''){
+          if(this.state.sortBy === 'Time'){
+            posts =  _.sortBy(data, 'timestamp');
+            console.log(posts);
+          }
+        }
         return (
         <div>
           <nav className='navbar navbar-inverse navbar-fixed-top'>
@@ -89,7 +106,14 @@ class PostShow extends Component {
                    <option key={i}>{category.path}</option>)
                   }
                 </select>
-                
+
+                <h3>Sort by </h3>
+                <select className="form-control" style={{width:"50%"}}
+                   onChange={this.handleSort.bind(this)}>
+                   <option> Score </option>
+                   <option> Time </option>
+                </select>
+
                 <br/><br/><br/>
                  <button onClick={this.handleAddPost} style={addPostStyle}
                    className="btn btn-default btn-lg">

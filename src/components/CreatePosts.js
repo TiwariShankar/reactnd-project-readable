@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-//import { createPosts } from '../actions/postActions';
 import PostList from '../components/PostList';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
