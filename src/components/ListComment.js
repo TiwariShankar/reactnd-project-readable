@@ -103,7 +103,7 @@ class ListComment extends Component {
           </nav>
            <div className="container">
             <div className="row">
-               <br/>
+               <br/><br/><br/><br/>
               <div className="col-md-6 col-md-offset-3">
                  <Link to={`/posts/${ post.id }`}>
                        <p style={commentTitleStyle}>{post.title}</p>
