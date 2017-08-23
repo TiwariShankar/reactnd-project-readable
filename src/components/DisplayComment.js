@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import * as ReadableAPI from '../api/readableAPI';
 import { bindActionCreators } from 'redux';
 import * as commentActions from '../actions/commentActions';

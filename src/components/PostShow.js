@@ -7,21 +7,24 @@ import * as postActions from '../actions/postActions';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { divStyle, titleStyle, dateStyle, hrStyle, addPostStyle} from '../styles/styles';
+//import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 class PostShow extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        commentCount: ''
+        commentCount: '',
+        category:[]
       }
     }
     static propTypes = {
-      posts: PropTypes.array.isRequired
+      posts: PropTypes.array.isRequired,
+      actions: PropTypes.object.isRequired
     }
 
-    static propTypes = {
-      actions: PropTypes.object.isRequired
-    };
+    componentDidMount() {
+      this.props.actions.loadCategory();
+    }
 
     getDate = (timestamp) => {
       const date = new Date(timestamp*1000);
@@ -55,22 +58,38 @@ class PostShow extends Component {
       // });
     }
 
+    handleDropdownChange = (evtKey) => {
+      const category = evtKey.target.value;
+      //console.log(category);
+      this.props.actions.getPostCategory(category);
+    }
+
     render() {
         //maps object to array
+        const category = this.props.category;
         var data = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
         const posts =  _.sortBy(data, 'voteScore').reverse();
+        //console.log("category:", category);
         return (
         <div>
           <nav className='navbar navbar-inverse navbar-fixed-top'>
                  <span style={{color:"orange", fontSize:"18pt", display:"inline"}}>
                    Readable App
-                 </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </nav>
+                 </span>
+         </nav>
            <div className="container">
             <div className="row">
               <br/><br/><br/><br/>
               <div className="col-md-6 col-md-offset-3">
-                 <br/><br/><br/>
+                <h3>Filter by category</h3>
+
+                <select onChange={this.handleDropdownChange.bind(this)}>
+                  {category.map((category, i) =>
+                   <option key={i}>{category.path}</option>)
+                  }
+                </select>
+
+                <br/><br/><br/>
                  <button onClick={this.handleAddPost} style={addPostStyle}
                    className="btn btn-default btn-lg">
                    <span className="glyphicon glyphicon-plus"></span>&nbsp;
@@ -109,14 +128,19 @@ class PostShow extends Component {
 
 //maps redux state to component props
 function mapStateToProps(state, ownProps) {
+  console.log(state);
   const posts = state.posts;
+  const category = state.category;
+
   if (posts.length > 0) {
     return {
-      posts: posts
+      posts: posts,
+      category:category
     }
   } else {
     return {
-      posts: []
+      posts: [],
+      category:category
     }
   }
 }

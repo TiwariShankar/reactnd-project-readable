@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as commentActions from '../actions/commentActions'
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { divStyle, titleStyle, dateStyle, hrStyle, commentTitleStyle} from '../styles/styles';
+import { divStyle, titleStyle, dateStyle, hrStyle, commentTitleStyle } from '../styles/styles';
 import _ from 'lodash';
 
 class ListComment extends Component {

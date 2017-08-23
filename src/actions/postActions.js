@@ -1,6 +1,14 @@
 import * as ReadableAPI from '../api/readableAPI';
 import * as types from './actionTypes';
 
+
+export function getPostCategorySuccess(posts){
+  return {
+    type: types.POST_CATEGORY_SUCCESS,
+    posts
+  }
+}
+
 export function commentPostSuccess(comments) {
   return {
     type: types.POST_COMMENT_SUCCESS,
@@ -43,12 +51,32 @@ export function upvotePostSuccess(posts){
   }
 }
 
-// export function loadCommentSuccess(comments){
-//   return {
-//     type: LOAD_COUNT_COMMENT_SUCCESS,
-//     comments
-//   }
-// }
+export function getCategorySuccess(category){
+  return {
+    type: types.CATEGORY_LOAD_SUCCESS,
+    category
+  }
+}
+
+export function getPostCategory(category){
+  return function (dispatch) {
+    return ReadableAPI.getPostsCategories(category).then(posts => {
+      dispatch(getPostCategorySuccess(posts));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function loadCategory(){
+  return function (dispatch) {
+    return ReadableAPI.getAllCategories().then(category => {
+      dispatch(getCategorySuccess(category));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
 
 export function createPosts(post) {
   return function (dispatch) {

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createPosts } from '../actions/postActions';
+//import { createPosts } from '../actions/postActions';
 import PostList from '../components/PostList';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import * as postActions from '../actions/postActions';
 
 class CreatePosts extends Component {
   constructor(props) {
@@ -14,14 +16,19 @@ class CreatePosts extends Component {
         body: '',
         author: '',
         timestamp: '',
-        id: ''
+        id: '',
+        category:'react'
       }
     };
     this.updatePostState = this.updatePostState.bind(this);
   }
 
   static propTypes = {
-    categories: PropTypes.array.isRequired
+    actions: PropTypes.object.isRequired
+  }
+
+  componentDidMount() {
+    this.props.actions.loadCategory();
   }
 
   updatePostState = (event) => {
@@ -39,19 +46,14 @@ class CreatePosts extends Component {
     const uuidv1 = require('uuid/v1');
     post['id'] = uuidv1();;
     this.setState(post);
+    //console.log(this.state);
 
-    this.props.createpost(this.state.post);
-    //this.props.history.push("/");
-
-    post['timestamp'] = '';
-    post['title'] = '';
-    post['body'] = '';
-    post['author'] = '';
-    this.setState(post);
-   }
+    this.props.actions.createPosts(this.state.post);
+    this.props.history.push("/");
+  }
 
   render() {
-    const {categories} = this.props;
+    const categories = this.props.category;
 
     return (
       <div>
@@ -69,15 +71,14 @@ class CreatePosts extends Component {
             <form onSubmit={ (event) => this.savePost(event) }>
               <h2 style={{color:"lightblue", fontSize:"18pt"}}>Create Post </h2>
               <br/>
-              <div className="form-group">
-                <select id="categories" className="form-control">
-                  {categories.map((data, i) => (
-                      <option key={ i } value={ data.path }>
+                <select name="category" onChange={this.updatePostState}
+                  id="category" className="form-control">
+                  {categories.length > 0 && categories.map((data, i) => (
+                      <option key={ i } value={ data.name }>
                         { data.path }
                       </option>
                     )) }
                 </select>
-              </div>
               <br/>
                <PostList post={this.state.post} updatePostState={this.updatePostState}/>
               <br/>
@@ -90,11 +91,24 @@ class CreatePosts extends Component {
   }
 }
 
-//map dispatch methdd to a specific props
+
+function mapStateToProps(state, ownProps) {
+  const category = state.category;
+  if (category.length > 0) {
+    return {
+      category:category
+    }
+  } else {
+    return {
+      category:[]
+    }
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
-    createpost: (post) => dispatch(createPosts(post))
+    actions: bindActionCreators(postActions, dispatch)
   };
 }
 
-export default connect(null, mapDispatchToProps)(CreatePosts);
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePosts);

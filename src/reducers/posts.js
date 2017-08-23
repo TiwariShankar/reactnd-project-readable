@@ -3,6 +3,8 @@ import initialState from './initialState';
 
 export default function posts(state = initialState.posts, action) {
    switch (action.type) {
+     case types.POST_CATEGORY_SUCCESS:
+          return (action.posts.filter(post => post.deleted === false));
      case types.CREATE_POST_SUCCESS:
           return [ ...state.filter(posts => posts.id !== action.posts.id),
                     action.posts
