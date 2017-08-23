@@ -14,7 +14,8 @@ class PostShow extends Component {
       super(props)
       this.state = {
         commentCount: '',
-        category:[]
+        category:[],
+        posts:[]
       }
     }
     static propTypes = {
@@ -58,9 +59,8 @@ class PostShow extends Component {
       // });
     }
 
-    handleDropdownChange = (evtKey) => {
+    handleDropdownCategory = (evtKey) => {
       const category = evtKey.target.value;
-      //console.log(category);
       this.props.actions.getPostCategory(category);
     }
 
@@ -69,7 +69,7 @@ class PostShow extends Component {
         const category = this.props.category;
         var data = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
         const posts =  _.sortBy(data, 'voteScore').reverse();
-        //console.log("category:", category);
+        //this.setState({posts})
         return (
         <div>
           <nav className='navbar navbar-inverse navbar-fixed-top'>
@@ -82,13 +82,14 @@ class PostShow extends Component {
               <br/><br/><br/><br/>
               <div className="col-md-6 col-md-offset-3">
                 <h3>Filter by category</h3>
-
-                <select onChange={this.handleDropdownChange.bind(this)}>
+                <select className="form-control"
+                  style={{width:"50%"}}
+                  onChange={this.handleDropdownCategory.bind(this)}>
                   {category.map((category, i) =>
                    <option key={i}>{category.path}</option>)
                   }
                 </select>
-
+                
                 <br/><br/><br/>
                  <button onClick={this.handleAddPost} style={addPostStyle}
                    className="btn btn-default btn-lg">
@@ -128,7 +129,6 @@ class PostShow extends Component {
 
 //maps redux state to component props
 function mapStateToProps(state, ownProps) {
-  console.log(state);
   const posts = state.posts;
   const category = state.category;
 

@@ -72,7 +72,7 @@ class CreatePosts extends Component {
               <h2 style={{color:"lightblue", fontSize:"18pt"}}>Create Post </h2>
               <br/>
                 <select name="category" onChange={this.updatePostState}
-                  id="category" className="form-control">
+                  id="category" style={{width:"50%"}} className="form-control">
                   {categories.length > 0 && categories.map((data, i) => (
                       <option key={ i } value={ data.name }>
                         { data.path }
