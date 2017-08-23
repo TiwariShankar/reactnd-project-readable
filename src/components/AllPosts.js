@@ -89,11 +89,12 @@ class AllPosts extends Component {
         if(this.state.sortBy!==''){
           if(this.state.sortBy === 'Time'){
             posts =  _.sortBy(data, 'timestamp');
-            console.log(posts);
           }else{posts =  _.sortBy(data, 'voteScore').reverse();}
         }else{
           posts =  _.sortBy(data, 'voteScore').reverse();
         }
+
+        console.log(posts);
 
         return (
         <div>

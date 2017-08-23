@@ -14,7 +14,9 @@ class ListComment extends Component {
     this.state = {
       post: {
         id: '',
-        author: ''
+        author: '',
+        voteScore: '',
+        timestamp: ''
       },
       comments:{
         id:'',
@@ -36,9 +38,11 @@ class ListComment extends Component {
 
        const post = this.state.post;
        ReadableAPI.getPost(postId).then((postData) => {
-         post['id'] = postData['id']
-         post['title'] = postData['title']
-         post['author'] = postData['author']
+         post['id'] = postData['id'];
+         post['title'] = postData['title'];
+         post['author'] = postData['author'];
+         post['voteScore'] = postData['voteScore'];
+         post['timestamp'] = postData['timestamp'];
          this.setState({post});
        });
    }
@@ -108,6 +112,11 @@ class ListComment extends Component {
                  <Link to={`/posts/${ post.id }`}>
                        <p style={commentTitleStyle}>{post.title}</p>
                  </Link>
+                 <div style={divStyle}>
+                    <span>{post.voteScore} points</span>&nbsp;
+                    <span>by {post.author} </span>&nbsp;
+                    <span style={dateStyle}>{this.getDate(post.timestamp)} hours ago</span>
+                 </div>
                  <br/>
                  <br/>
                  <textarea className="form-control"
