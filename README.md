@@ -6,10 +6,11 @@ Install
 --------
 Download or fork and clone the server repo at: https://github.com/udacity/reactnd-project-readable-starter
 
-Please make sure that server is running before the application starts.
+Please make sure to run the server before application starts.
 
 To install the app from your shell, run:
 --------
-```npm install
+```
+npm install
 npm run
 ```
