@@ -11,8 +11,8 @@ class AllPosts extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        commentCount: '',
-        sortBy:''
+        sortBy:'',
+        cate:''
       };
       this.getDate = this.getDate.bind(this);
       this.upvote = this.upvote.bind(this);
@@ -32,7 +32,7 @@ class AllPosts extends Component {
     getDate = (timestamp) => {
       const date = new Date(timestamp*1000);
       const hours = date.getHours();
-      return hours
+      return hours;
     }
 
     upvote = (post, status) => {
@@ -50,9 +50,10 @@ class AllPosts extends Component {
 
     handleDropdownCategory = (evtKey) => {
       const category = evtKey.target.value;
+      const cate = this.state.cate;
+      this.setState({cate,category});
+      this.props.history.push(`/${ category }`);
       this.props.actions.getPostCategory(category);
-      const posts =  _.sortBy(this.props, 'timestamp').reverse();
-      this.setState({posts});
     }
 
     handleSort = (evtKey) => {
@@ -79,23 +80,24 @@ class AllPosts extends Component {
         }else{
           posts =  _.sortBy(data, 'voteScore').reverse();
         }
+        
         return (
         <div>
           <nav className='navbar navbar-inverse navbar-fixed-top'>
                  <span style={{color:"orange", fontSize:"18pt", display:"inline"}}>
                    Readable App
                  </span>
-         </nav>
+          </nav>
            <div className="container">
             <div className="row">
               <br/><br/><br/><br/>
               <div className="col-md-6 col-md-offset-3">
                 <h3>Filter by category</h3>
-                <select className="form-control"
+                <select defaultValue = "react" className="form-control"
                   style = {{width:"50%"}}
                   onChange = {this.handleDropdownCategory.bind(this)}>
                   {category.map((category, i) =>
-                   <option key={i}>{category.path}</option>)
+                   <option key={i} value={category.name}>{category.name}</option>)
                   }
                 </select><br/>
 

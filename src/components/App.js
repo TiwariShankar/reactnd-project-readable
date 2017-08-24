@@ -11,8 +11,9 @@ export default class App extends Component {
     return (
       <div>
         <Route exact path="/" component={AllPosts} />
+        <Route path="/:category" component={AllPosts} />
         <Route exact path="/create" component={CreatePosts} />
-        <Route exact path="/posts/:id" component={PostDetail} />
+        <Route exact path="/:category/:id" component={PostDetail} />
         <Route path="/posts/:id/comments" component={ListComment} />
         <Route exact path="/comments/:id" component={DisplayComment} />
       </div>
