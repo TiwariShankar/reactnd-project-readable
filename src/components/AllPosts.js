@@ -6,7 +6,7 @@ import * as postActions from '../actions/postActions';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import PostShow from './PostShow';
-//import * as ReadableAPI from '../api/readableAPI';
+import * as ReadableAPI from '../api/readableAPI';
 
 class AllPosts extends Component {
     constructor(props) {
@@ -51,15 +51,14 @@ class AllPosts extends Component {
     }
 
     loadCountsComment = (post) => {
-      //  console.log("hi");
-      //  ReadableAPI.loadCountComment(post.id).then((responseData) => {
-      //   console.log("loadCountComment", responseData)
-      //   if(responseData.length > 0){
-      //     return responseData.length;
-      //   }else{
-      //     return 0;
-      //   }
-      // });
+       ReadableAPI.loadCountComment(post.id).then((responseData) => {
+        if(responseData.length > 0){
+          console.log(responseData.length);
+          return responseData.length;
+        }else{
+          return 0;
+        }
+      });
     }
 
     handleDropdownCategory = (evtKey) => {
