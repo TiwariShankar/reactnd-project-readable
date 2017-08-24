@@ -53,14 +53,17 @@ class PostDetail extends Component {
 
   editPost = (event) => {
     event.preventDefault();
-
-    var timestamp = new Date().getTime() / 1000;
     const post = this.state.post;
-    post['timestamp'] = timestamp;
-    this.setState({post});
+    if(post['title'] === "" || post['body'] === "" || post['author'] === ""){
+      alert("Please enter the text!");
+    }else{
+      var timestamp = new Date().getTime() / 1000;
+      post['timestamp'] = timestamp;
+      this.setState({post});
 
-    this.props.actions.updatePosts(this.state.post);
-    this.props.history.push("/");
+      this.props.actions.updatePosts(this.state.post);
+      this.props.history.push("/");
+    }
   }
 
   deletePost = (event) => {

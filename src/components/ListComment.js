@@ -53,29 +53,33 @@ class ListComment extends Component {
      this.setState({comments});
    }
 
-   updateCommentState = (event) => {
+   AddComment = (event) => {
         //event.preventDefault();
         const post = this.state.post;
         const comments = this.state.comments;
 
-        const timestamp = new Date().getTime() / 1000;
-        comments['timestamp'] = timestamp;
-        const uuidv1 = require('uuid/v1');
-        comments['id'] = uuidv1();
-        comments['owner'] = post['author'];
-        comments['parentId'] = post['id'];
+        if(comments['body'] === ""){
+          alert("Please enter some text!");
+        }else{
+          const timestamp = new Date().getTime() / 1000;
+          comments['timestamp'] = timestamp;
+          const uuidv1 = require('uuid/v1');
+          comments['id'] = uuidv1();
+          comments['owner'] = post['author'];
+          comments['parentId'] = post['id'];
 
-        //console.log(comments);
-        this.setState(comments);
+          //console.log(comments);
+          this.setState(comments);
 
-        this.props.actions.postComments(this.state.comments);
+          this.props.actions.postComments(this.state.comments);
 
-        comments['timestamp'] = '';
-        comments['parentId'] = '';
-        comments['body'] = '';
-        comments['owner'] = '';
-        comments['id'] = '';
-        this.setState(comments);
+          comments['timestamp'] = '';
+          comments['parentId'] = '';
+          comments['body'] = '';
+          comments['owner'] = '';
+          comments['id'] = '';
+          this.setState(comments);
+        }
    }
 
    getDate = (timestamp) => {
@@ -125,7 +129,7 @@ class ListComment extends Component {
                            onChange= {(event) => this.updateCommentBody(event)}
                            placeholder="Comment">
                  </textarea><br/>
-                 <button onClick={(event) => this.updateCommentState(post.id)}
+                 <button onClick={(event) => this.AddComment(post.id)}
                          className="btn btn-default btn-xs">Add Comment</button>
                   <br/><br/><br/>
                   {comments.length > 0 && comments.map((data, i) => (

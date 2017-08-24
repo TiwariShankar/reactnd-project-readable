@@ -6,6 +6,7 @@ import * as postActions from '../actions/postActions';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import PostShow from './PostShow';
+//import * as ReadableAPI from '../api/readableAPI';
 
 class AllPosts extends Component {
     constructor(props) {
@@ -50,9 +51,8 @@ class AllPosts extends Component {
     }
 
     loadCountsComment = (post) => {
-      //console.log(post.id);
-      //this.props.actions.loadComments(post.id);
-      // ReadableAPI.loadCountComment(post.id).then((responseData) => {
+      //  console.log("hi");
+      //  ReadableAPI.loadCountComment(post.id).then((responseData) => {
       //   console.log("loadCountComment", responseData)
       //   if(responseData.length > 0){
       //     return responseData.length;
@@ -88,13 +88,11 @@ class AllPosts extends Component {
 
         if(this.state.sortBy!==''){
           if(this.state.sortBy === 'Time'){
-            posts =  _.sortBy(data, 'timestamp');
+            posts =  _.sortBy(data, 'timestamp').reverse();
           }else{posts =  _.sortBy(data, 'voteScore').reverse();}
         }else{
           posts =  _.sortBy(data, 'voteScore').reverse();
         }
-
-        console.log(posts);
 
         return (
         <div>

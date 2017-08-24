@@ -1,3 +1,4 @@
+//create page
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -39,16 +40,22 @@ class CreatePosts extends Component {
 
   savePost = (event) => {
     event.preventDefault();
-    var timestamp = new Date().getTime() / 1000;
     const post = this.state.post;
-    post['timestamp'] = timestamp;
-    const uuidv1 = require('uuid/v1');
-    post['id'] = uuidv1();;
-    this.setState(post);
-    //console.log(this.state);
+    console.log(post);
 
-    this.props.actions.createPosts(this.state.post);
-    this.props.history.push("/");
+    if(post['title'] === "" || post['body'] === "" || post['author'] === ""){
+      alert("please enter the details");
+    }else{
+      var timestamp = new Date().getTime() / 1000;
+      post['timestamp'] = timestamp;
+      const uuidv1 = require('uuid/v1');
+      post['id'] = uuidv1();;
+      this.setState(post);
+      //console.log(this.state);
+
+      this.props.actions.createPosts(this.state.post);
+      this.props.history.push("/");
+    }
   }
 
   render() {

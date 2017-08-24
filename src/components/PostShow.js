@@ -1,4 +1,4 @@
-//shared between edit and create post
+//shows list of posts for allposts
 import React from 'react'
 import { divStyle, titleStyle, dateStyle, hrStyle, addPostStyle} from '../styles/styles';
 import { Link } from 'react-router-dom';

@@ -40,12 +40,17 @@ class DisplayComment extends Component {
 
     var timestamp = new Date().getTime() / 1000;
     const comment = this.state.comment;
-    comment['timestamp'] = timestamp;
-    this.setState({comment});
-    const parentId = this.state.comment.parentId;
 
-    this.props.actions.editComment(this.state.comment);
-    this.props.history.push(`/posts/${parentId}/comments`);
+    if(comment['body'] === ""){
+      alert("Please enter some text in comment");
+    }else{
+      comment['timestamp'] = timestamp;
+      this.setState({comment});
+      const parentId = this.state.comment.parentId;
+
+      this.props.actions.editComment(this.state.comment);
+      this.props.history.push(`/posts/${parentId}/comments`);
+    }
   }
 
   deleteComment = (data) => {
