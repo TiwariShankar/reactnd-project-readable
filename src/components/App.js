@@ -11,11 +11,11 @@ export default class App extends Component {
     return (
       <div>
         <Route exact path="/" component={AllPosts} />
-        <Route path="/:category" component={AllPosts} />
-        <Route exact path="/create" component={CreatePosts} />
-        <Route exact path="/:category/:id" component={PostDetail} />
+        <Route path="/create" component={CreatePosts} />
+        <Route exact path="/category/:category" component={AllPosts} />
+        <Route path="/category/:category/:id" component={PostDetail} />
         <Route path="/posts/:id/comments" component={ListComment} />
-        <Route exact path="/comments/:id" component={DisplayComment} />
+        <Route path="/comments/:id" component={DisplayComment} />
       </div>
 
       );

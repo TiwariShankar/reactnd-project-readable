@@ -11,7 +11,7 @@ const PostShow = ({posts, getDate, upvote, showComments, handleAddPost}) =>
         </button>
         {posts.length > 0 && posts.map((post, i) => (
           <div key={i}>
-              <Link to={`/${ post.category }/${ post.id }`}><p style={titleStyle}>{post.title}</p></Link>
+              <Link to={`/category/${ post.category }/${ post.id }`}><p style={titleStyle}>{post.title}</p></Link>
               <div style={divStyle}>
                  <span>{post.voteScore} points</span>&nbsp;
                  <span>by {post.author} </span>&nbsp;

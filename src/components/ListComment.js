@@ -16,7 +16,8 @@ class ListComment extends Component {
         id: '',
         author: '',
         voteScore: '',
-        timestamp: ''
+        timestamp: '',
+        category: ''
       },
       comments:{
         id:'',
@@ -43,6 +44,7 @@ class ListComment extends Component {
          post['author'] = postData['author'];
          post['voteScore'] = postData['voteScore'];
          post['timestamp'] = postData['timestamp'];
+         post['category'] = postData['category'];
          this.setState({post});
        });
    }
@@ -95,6 +97,7 @@ class ListComment extends Component {
    render() {
         const post = this.state.post;
         let comments = this.props.comments;
+        console.log(post);
 
         comments = Object.keys(comments).map((k) => comments[k]);
         comments =  _.sortBy(comments, 'voteScore').reverse();
@@ -113,7 +116,7 @@ class ListComment extends Component {
             <div className="row">
                <br/><br/><br/><br/>
               <div className="col-md-6 col-md-offset-3">
-                 <Link to={`/posts/${ post.id }`}>
+                 <Link to={`/category/${ post.category }/${ post.id }`}>
                        <p style={commentTitleStyle}>{post.title}</p>
                  </Link>
                  <div style={divStyle}>

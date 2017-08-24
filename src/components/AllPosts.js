@@ -11,8 +11,7 @@ class AllPosts extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        sortBy:'',
-        cate:''
+        sortBy:''
       };
       this.getDate = this.getDate.bind(this);
       this.upvote = this.upvote.bind(this);
@@ -50,15 +49,20 @@ class AllPosts extends Component {
 
     handleDropdownCategory = (evtKey) => {
       const category = evtKey.target.value;
-      const cate = this.state.cate;
-      this.setState({cate,category});
-      this.props.history.push(`/${ category }`);
+      //const cate = this.state.cate;
+      //this.setState({cate,category});
       this.props.actions.getPostCategory(category);
+
+      this.props.history.push(`/category/${ category }`);
     }
 
     handleSort = (evtKey) => {
        const sortBy = evtKey.target.value;
        this.setState({sortBy});
+    }
+
+    getSelected = (name) => {
+      return name === this.props.match.params.category;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -80,7 +84,7 @@ class AllPosts extends Component {
         }else{
           posts =  _.sortBy(data, 'voteScore').reverse();
         }
-        
+
         return (
         <div>
           <nav className='navbar navbar-inverse navbar-fixed-top'>
@@ -93,12 +97,12 @@ class AllPosts extends Component {
               <br/><br/><br/><br/>
               <div className="col-md-6 col-md-offset-3">
                 <h3>Filter by category</h3>
-                <select defaultValue = "react" className="form-control"
+                <select className="form-control"
                   style = {{width:"50%"}}
                   onChange = {this.handleDropdownCategory.bind(this)}>
                   {category.map((category, i) =>
-                   <option key={i} value={category.name}>{category.name}</option>)
-                  }
+                   <option key={i} selected={this.getSelected(category.name)} value={category.name}>{category.name}</option>
+                  )}
                 </select><br/>
 
                 <h3>Sort by </h3>
