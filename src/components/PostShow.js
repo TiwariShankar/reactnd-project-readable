@@ -3,7 +3,7 @@ import React from 'react'
 import { divStyle, titleStyle, dateStyle, hrStyle, addPostStyle} from '../styles/styles';
 import { Link } from 'react-router-dom';
 
-const PostShow = ({posts, getDate, upvote, showComments, loadCountsComment, handleAddPost}) =>
+const PostShow = ({posts, getDate, upvote, showComments, handleAddPost}) =>
         <div>
         <button onClick={handleAddPost} style={addPostStyle}
           className="btn btn-default btn-lg">
@@ -26,7 +26,6 @@ const PostShow = ({posts, getDate, upvote, showComments, loadCountsComment, hand
                      <span className="glyphicon glyphicon-arrow-down"></span>
                  </button>
                  &nbsp;&nbsp;
-                 <span>{loadCountsComment(post)}</span>&nbsp;&nbsp;
                  <button onClick={(event) => showComments(post.id)} className="btn btn-info btn-xs"> Comments</button>
               </div>
               <hr style={hrStyle}/>

@@ -6,7 +6,6 @@ import * as postActions from '../actions/postActions';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import PostShow from './PostShow';
-import * as ReadableAPI from '../api/readableAPI';
 
 class AllPosts extends Component {
     constructor(props) {
@@ -16,7 +15,6 @@ class AllPosts extends Component {
         sortBy:''
       };
       this.getDate = this.getDate.bind(this);
-      this.loadCountsComment = this.loadCountsComment.bind(this);
       this.upvote = this.upvote.bind(this);
       this.showComments = this.showComments.bind(this);
       this.handleAddPost = this.handleAddPost.bind(this);
@@ -50,17 +48,6 @@ class AllPosts extends Component {
        this.props.history.push(`/posts/${ postId }/comments`);
     }
 
-    loadCountsComment = (post) => {
-       ReadableAPI.loadCountComment(post.id).then((responseData) => {
-        if(responseData.length > 0){
-          console.log(responseData.length);
-          return responseData.length;
-        }else{
-          return 0;
-        }
-      });
-    }
-
     handleDropdownCategory = (evtKey) => {
       const category = evtKey.target.value;
       this.props.actions.getPostCategory(category);
@@ -85,14 +72,13 @@ class AllPosts extends Component {
         var data = Object.keys(this.props.posts).map((k) => this.props.posts[k]);
         var posts;
 
-        if(this.state.sortBy!==''){
+        if(this.state.sortBy !== ''){
           if(this.state.sortBy === 'Time'){
             posts =  _.sortBy(data, 'timestamp').reverse();
           }else{posts =  _.sortBy(data, 'voteScore').reverse();}
         }else{
           posts =  _.sortBy(data, 'voteScore').reverse();
         }
-
         return (
         <div>
           <nav className='navbar navbar-inverse navbar-fixed-top'>
