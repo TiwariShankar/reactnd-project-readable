@@ -1,10 +1,8 @@
 //create page
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PostList from '../components/PostList';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import * as postActions from '../actions/postActions';
 
 class CreatePosts extends Component {
@@ -23,12 +21,8 @@ class CreatePosts extends Component {
     this.updatePostState = this.updatePostState.bind(this);
   }
 
-  static propTypes = {
-    actions: PropTypes.object.isRequired
-  }
-
   componentDidMount() {
-    this.props.actions.loadCategory();
+    this.props.loadCategory();
   }
 
   updatePostState = (event) => {
@@ -53,7 +47,7 @@ class CreatePosts extends Component {
       this.setState(post);
       //console.log(this.state);
 
-      this.props.actions.createPosts(this.state.post);
+      this.props.createPosts(this.state.post);
       this.props.history.push("/");
     }
   }
@@ -98,8 +92,7 @@ class CreatePosts extends Component {
 }
 
 
-function mapStateToProps(state, ownProps) {
-  const category = state.category;
+function mapStateToProps({category}) {
   if (category.length > 0) {
     return {
       category:category
@@ -111,10 +104,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(postActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePosts);
+export default connect(mapStateToProps, postActions)(CreatePosts);

@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as postActions from '../actions/postActions';
-import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import PostShow from './PostShow';
 
@@ -21,11 +20,10 @@ class AllPosts extends Component {
 
     static propTypes = {
       posts: PropTypes.array.isRequired,
-      actions: PropTypes.object.isRequired
     }
 
     componentDidMount() {
-      this.props.actions.loadCategory();
+      this.props.loadCategory();
     }
 
     getDate = (timestamp) => {
@@ -35,7 +33,7 @@ class AllPosts extends Component {
     }
 
     upvote = (post, status) => {
-      this.props.actions.votePost(post, status);
+      this.props.votePost(post, status);
     }
 
     handleAddPost = (e) => {
@@ -49,10 +47,7 @@ class AllPosts extends Component {
 
     handleDropdownCategory = (evtKey) => {
       const category = evtKey.target.value;
-      //const cate = this.state.cate;
-      //this.setState({cate,category});
-      this.props.actions.getPostCategory(category);
-
+      this.props.getPostCategory(category);
       this.props.history.push(`/category/${ category }`);
     }
 
@@ -131,10 +126,7 @@ class AllPosts extends Component {
 
 
 //maps redux state to component props
-function mapStateToProps(state, ownProps) {
-  const posts = state.posts;
-  const category = state.category;
-
+function mapStateToProps({posts, category}) {
   if (posts.length > 0) {
     return {
       posts: posts,
@@ -148,12 +140,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-//map dispatch method to a specific props
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(postActions, dispatch)
-  };
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllPosts);
+export default connect(mapStateToProps, postActions)(AllPosts);

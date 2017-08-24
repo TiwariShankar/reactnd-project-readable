@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as ReadableAPI from '../api/readableAPI';
-import { bindActionCreators } from 'redux';
 import * as commentActions from '../actions/commentActions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -48,13 +47,13 @@ class DisplayComment extends Component {
       this.setState({comment});
       const parentId = this.state.comment.parentId;
 
-      this.props.actions.editComment(this.state.comment);
+      this.props.editComment(this.state.comment);
       this.props.history.push(`/posts/${parentId}/comments`);
     }
   }
 
   deleteComment = (data) => {
-      this.props.actions.deleteComment(data);
+      this.props.deleteComment(data);
       const parentId = this.state.comment.parentId;
       this.props.history.push(`/posts/${parentId}/comments`);
   }
@@ -101,10 +100,5 @@ class DisplayComment extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(commentActions, dispatch)
-  };
-}
 
-export default connect(null, mapDispatchToProps)(DisplayComment);
+export default connect(null, commentActions)(DisplayComment);

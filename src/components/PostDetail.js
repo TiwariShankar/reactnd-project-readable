@@ -1,10 +1,8 @@
 //for single post
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ReadableAPI from '../api/readableAPI';
 import * as postActions from '../actions/postActions';
-import { bindActionCreators } from 'redux';
 import PostList from '../components/PostList';
 import { Link } from 'react-router-dom';
 
@@ -25,9 +23,6 @@ class PostDetail extends Component {
     this.updatePostState = this.updatePostState.bind(this);
   }
 
-  static propTypes = {
-    actions: PropTypes.object.isRequired
-  };
 
   componentDidMount() {
     const postId = this.props.match.params.id;
@@ -61,14 +56,14 @@ class PostDetail extends Component {
       post['timestamp'] = timestamp;
       this.setState({post});
 
-      this.props.actions.updatePosts(this.state.post);
+      this.props.updatePosts(this.state.post);
       this.props.history.push("/");
     }
   }
 
   deletePost = (event) => {
     event.preventDefault();
-    this.props.actions.deletePosts(this.state.post);
+    this.props.deletePosts(this.state.post);
     this.props.history.push("/");
   }
 
@@ -110,11 +105,5 @@ class PostDetail extends Component {
   }
 }
 
-//map dispatch method to a specific props
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(postActions, dispatch)
-  };
-}
 
-export default connect(null, mapDispatchToProps)(PostDetail);
+export default connect(null, postActions)(PostDetail);

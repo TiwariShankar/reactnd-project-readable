@@ -3,8 +3,6 @@ import * as ReadableAPI from '../api/readableAPI';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as commentActions from '../actions/commentActions'
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 import { divStyle, titleStyle, dateStyle, hrStyle, commentTitleStyle } from '../styles/styles';
 import _ from 'lodash';
 
@@ -29,13 +27,9 @@ class ListComment extends Component {
     }
    }
 
-   static propTypes = {
-     actions: PropTypes.object.isRequired
-   };
-
    componentDidMount() {
        const postId = this.props.match.params.id;
-       this.props.actions.loadComments(postId);
+       this.props.loadComments(postId);
 
        const post = this.state.post;
        ReadableAPI.getPost(postId).then((postData) => {
@@ -70,10 +64,8 @@ class ListComment extends Component {
           comments['owner'] = post['author'];
           comments['parentId'] = post['id'];
 
-          //console.log(comments);
           this.setState(comments);
-
-          this.props.actions.postComments(this.state.comments);
+          this.props.postComments(this.state.comments);
 
           comments['timestamp'] = '';
           comments['parentId'] = '';
@@ -91,14 +83,13 @@ class ListComment extends Component {
    }
 
    votComment = (data, status) => {
-     this.props.actions.voteComment(data, status);
+     this.props.voteComment(data, status);
    }
 
    render() {
         const post = this.state.post;
         let comments = this.props.comments;
-        console.log(post);
-
+        
         comments = Object.keys(comments).map((k) => comments[k]);
         comments =  _.sortBy(comments, 'voteScore').reverse();
 
@@ -160,11 +151,10 @@ class ListComment extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
-  const comment = state.comments;
-  if(comment.length > 0){
+function mapStateToProps({comments}) {
+  if(comments.length > 0){
     return {
-      comments : comment
+      comments : comments
     }
   }else{
     return {
@@ -173,10 +163,5 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(commentActions, dispatch)
-  };
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListComment);
+export default connect(mapStateToProps, commentActions)(ListComment);
